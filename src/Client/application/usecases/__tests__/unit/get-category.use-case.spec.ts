@@ -1,7 +1,7 @@
-import { NotFoundError } from "../../../../../shared/errors";
-import ClientInMemoryRepository from "../../../../infra/repository/db/in-memory/client-in-memory.repository";
-import { GetClientUseCase } from "../../get-client.use-case";
-import Client from "../../../../domain/entities/client";
+import { NotFoundError } from "#shared/errors";
+import Client from "#client/domain/entities/client";
+import GetClientUseCase from "../../get-client.use-case";
+import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
 
 describe("GetClientUseCase Unit Tests", () => {
   let useCase: GetClientUseCase.UseCase;

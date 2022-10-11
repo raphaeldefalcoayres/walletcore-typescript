@@ -1,7 +1,7 @@
-import { DeleteClientUseCase } from "../../delete-client.use-case";
-import { NotFoundError } from "../../../../../shared/errors";
-import Client from "../../../../domain/entities/client";
-import ClientInMemoryRepository from "../../../../infra/repository/db/in-memory/client-in-memory.repository";
+import Client from "#client/domain/entities/client";
+import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
+import { NotFoundError } from "#shared/errors";
+import DeleteClientUseCase from "../../delete-client.use-case";
 
 describe("DeleteClientUseCase Unit Tests", () => {
   let useCase: DeleteClientUseCase.UseCase;

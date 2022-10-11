@@ -1,7 +1,9 @@
-import { SortDirection } from "../../../../../shared/repository/repository-contracts";
-import ClientRepository from "../../../../domain/repository/client.repository";
-import { InMemorySearchableRepository } from "../../../../../shared/repository/in-memory-repository";
-import Client from "Client/domain/entities/client";
+import { ClientRepository } from "#client/domain";
+import Client from "#client/domain/entities/client";
+import {
+  InMemorySearchableRepository,
+  SortDirection,
+} from "#shared/repository";
 
 export class ClientInMemoryRepository
   extends InMemorySearchableRepository<Client>

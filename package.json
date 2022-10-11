@@ -40,6 +40,8 @@
   "imports": {
     "#shared/*": "./dist/shared/*.js",
     "#client/domain": "./dist/client/domain/index.js",
+    "#client/infra": "./dist/client/infra/index.js",
+    "#client/application": "./dist/client/application/index.js",
     "#client/*": "./dist/client/*.js"
   },
   "exports": {

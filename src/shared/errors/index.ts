@@ -1,24 +1,6 @@
-import { FieldsErrors } from "../../shared/validators/validator-fields-interface";
+// created from 'create-ts-index'
 
-export class ValidationError extends Error {}
-
-export class EntityValidationError extends Error {
-  constructor(public error: FieldsErrors) {
-    super("Entity Validation Error");
-    this.name = "EntityValidationError";
-  }
-}
-
-export class NotFoundError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "NotFoundError";
-  }
-}
-
-export class LoadEntityError extends Error {
-  constructor(public error: FieldsErrors, message?: string) {
-    super(message ?? "An entity not be loaded");
-    this.name = "LoadEntityError";
-  }
-}
+export * from './invalid-uuid.error';
+export * from './load-entity.error';
+export * from './not-found.error';
+export * from './validation-error';

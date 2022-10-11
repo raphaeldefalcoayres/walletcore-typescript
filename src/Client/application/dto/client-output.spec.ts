@@ -1,4 +1,4 @@
-import Client from "../../domain/entities/client";
+import Client from "#client/domain/entities/client";
 import { ClientOutputMapper } from "./client-output";
 
 describe("ClientOutputMapper Unit Tests", () => {

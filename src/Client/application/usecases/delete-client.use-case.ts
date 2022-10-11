@@ -1,5 +1,5 @@
-import { ClientRepository } from "../../domain/repository/client.repository";
-import { default as DefaultUseCase } from "../../../shared/usecases/use-case";
+import { ClientRepository } from "#client/domain";
+import { default as DefaultUseCase } from "#shared/usecases/use-case";
 
 export namespace DeleteClientUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {

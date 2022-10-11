@@ -1,7 +1,7 @@
-import ClientRepository from "../../domain/repository/client.repository";
-import { ClientOutput, ClientOutputMapper } from "../dto/client-output";
-import { default as DefaultUseCase } from "../../../shared/usecases/use-case";
-import Client from "../../domain/entities/client";
+import { ClientRepository } from "#client/domain";
+import Client from "#client/domain/entities/client";
+import { default as DefaultUseCase } from "#shared/usecases/use-case";
+import { ClientOutput, ClientOutputMapper } from "../dto";
 
 export namespace CreateClientUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {

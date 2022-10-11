@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsDate,
   IsNotEmpty,
   IsOptional,
@@ -7,7 +6,7 @@ import {
   MaxLength,
 } from "class-validator";
 import { ClientProperties } from "../entities/client";
-import ClassValidatorFields from "../../../shared/validators/class-validator-fields";
+import ClassValidatorFields from "#shared/validators/class-validator-fields";
 
 export class ClientRules {
   @MaxLength(255)

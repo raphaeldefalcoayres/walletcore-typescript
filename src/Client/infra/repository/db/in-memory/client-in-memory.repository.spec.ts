@@ -1,5 +1,5 @@
-import Client from "../../../../domain/entities/client";
-import { ClientFakeBuilder } from "../../../../domain/entities/client-fake-builder";
+import { ClientFakeBuilder } from "#client/domain";
+import Client from "#client/domain/entities/client";
 import ClientInMemoryRepository from "./client-in-memory.repository";
 
 describe("ClientInMemoryRepository", () => {

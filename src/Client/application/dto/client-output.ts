@@ -1,4 +1,4 @@
-import Client from "../../domain/entities/client";
+import Client from "#client/domain/entities/client";
 
 export type ClientOutput = {
   id: string;

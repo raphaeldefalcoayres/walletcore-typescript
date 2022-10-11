@@ -1,7 +1,8 @@
-import Client from "../../../../domain/entities/client";
+import { ClientRepository } from "#client/domain";
+
+import Client from "#client/domain/entities/client";
+import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
 import ListCategoriesUseCase from "../../list-clients.use-case";
-import ClientRepository from "../../../../domain/repository/client.repository";
-import ClientInMemoryRepository from "../../../../infra/repository/db/in-memory/client-in-memory.repository";
 
 describe("ListCategoriesUseCase Unit Tests", () => {
   let useCase: ListCategoriesUseCase.UseCase;

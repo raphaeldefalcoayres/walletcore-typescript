@@ -1,4 +1,4 @@
-import Entity from "../../shared/entities/entity";
+import Entity from "#shared/entities/entity";
 export interface RepositoryInterface<E extends Entity> {
   insert(entity: E): Promise<void>;
   bulkInsert(entities: E[]): Promise<void>;

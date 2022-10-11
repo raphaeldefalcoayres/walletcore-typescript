@@ -1,11 +1,11 @@
-import { ClientRepository } from "../../domain/repository/client.repository";
-import { ClientOutput, ClientOutputMapper } from "../dto/client-output";
-import { default as DefaultUseCase } from "../../../shared/usecases/use-case";
-import { SearchInputDto } from "../../../shared/dto/search-input";
+import { default as DefaultUseCase } from "#shared/usecases/use-case";
+import { SearchInputDto } from "#shared/dto/search-input";
 import {
   PaginationOutputDto,
   PaginationOutputMapper,
-} from "../../../shared/dto/pagination-output";
+} from "#shared/dto/pagination-output";
+import { ClientRepository } from "#client/domain";
+import { ClientOutput, ClientOutputMapper } from "../dto";
 
 export namespace ListCategoriesUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {

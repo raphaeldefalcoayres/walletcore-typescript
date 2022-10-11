@@ -1,5 +1,5 @@
-import Entity from "../../shared/entities/entity";
-import { NotFoundError } from "../../shared/errors";
+import Entity from "#shared/entities/entity";
+import { NotFoundError } from "#shared/errors";
 
 import {
   RepositoryInterface,

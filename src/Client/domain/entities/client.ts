@@ -1,6 +1,6 @@
 import ClientValidatorFactory from "../validators/client.validator";
-import { EntityValidationError } from "../../../shared/errors";
-import Entity from "../../../shared/entities/entity";
+import { EntityValidationError } from "#shared/errors";
+import Entity from "#shared/entities/entity";
 
 export type ClientProperties = {
   name: string;
