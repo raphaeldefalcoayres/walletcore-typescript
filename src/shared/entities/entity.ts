@@ -1,6 +1,6 @@
 import { v4 as uuid, validate } from "uuid";
 
-export default abstract class Entity<Props> {
+export default abstract class Entity<Props = any> {
   public readonly uuid: string;
   constructor(public readonly props: Props, id?: string) {
     this.uuid = id || uuid();

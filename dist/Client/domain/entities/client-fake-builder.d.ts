@@ -1,0 +1,32 @@
+import Client from "./client";
+declare type PropOrFactory<T> = T | ((index: number) => T);
+export declare class ClientFakeBuilder<TBuild = any> {
+    private _uuid;
+    private _name;
+    private _email;
+    private _created_at;
+    private _updated_at;
+    private countObjs;
+    static aClient(): ClientFakeBuilder<Client>;
+    static theCategories(countObjs: number): ClientFakeBuilder<Client[]>;
+    private chance;
+    private constructor();
+    withUUID(valueOrFactory: PropOrFactory<any>): this;
+    withName(valueOrFactory: PropOrFactory<string>): this;
+    withInvalidNameEmpty(value: "" | null | undefined): this;
+    withInvalidNameNotAString(value?: any): this;
+    withInvalidNameTooLong(value?: string): this;
+    withEmail(valueOrFactory: PropOrFactory<string | null>): this;
+    withInvalidEmailNotAString(value?: any): this;
+    withCreatedAt(valueOrFactory: PropOrFactory<Date>): this;
+    withUpdatedAt(valueOrFactory: PropOrFactory<Date>): this;
+    build(): TBuild;
+    get uuid(): any;
+    get name(): any;
+    get email(): any;
+    get created_at(): any;
+    get updated_at(): any;
+    private getValue;
+    private callFactory;
+}
+export {};
