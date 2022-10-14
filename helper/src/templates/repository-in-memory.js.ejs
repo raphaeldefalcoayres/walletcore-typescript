@@ -1,0 +1,41 @@
+import { <%= props.name %>Repository } from "#<%= props.name.toLowerCase() %>/domain";
+import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
+import {
+  InMemorySearchableRepository,
+  SortDirection,
+} from "#shared/repository";
+
+export class <%= props.name %>InMemoryRepository
+  extends InMemorySearchableRepository<<%= props.name %>>
+  implements <%= props.name %>Repository.Repository
+{
+  sortableFields: string[] = ["created_at"];
+
+  protected async applyFilter(
+    items: <%= props.name %>[],
+    filter: <%= props.name %>Repository.Filter
+  ): Promise<<%= props.name %>[]> {
+    if (!filter) {
+      return items;
+    }
+
+    return items.filter((i) => {
+      return i.props.id === filter;
+    });
+  }
+
+  protected async applySort(
+    items: <%= props.name %>[],
+    sort: string | null,
+    sort_dir: SortDirection | null
+  ): Promise<<%= props.name %>[]> {
+    return !sort
+      ? super.applySort(items, "created_at", "desc")
+      : super.applySort(items, sort, sort_dir);
+  }
+}
+
+export default <%= props.name %>InMemoryRepository;
+//validação
+//implementar uma ordenação, ordenar por created_at
+//testar filtro + ordenação

@@ -1,12 +1,12 @@
-import { ClientRepository } from "#client/domain";
+import { AccountRepository } from "#account/domain";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
 
-export namespace DeleteClientUseCase {
+export namespace DeleteAccountUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private clientRepository: ClientRepository.Repository) {}
+    constructor(private accountRepository: AccountRepository.Repository) {}
 
     async execute(input: Input): Promise<Output> {
-      await this.clientRepository.delete(input.id);
+      await this.accountRepository.delete(input.id);
     }
   }
 
@@ -17,4 +17,4 @@ export namespace DeleteClientUseCase {
   type Output = void;
 }
 
-export default DeleteClientUseCase;
+export default DeleteAccountUseCase;

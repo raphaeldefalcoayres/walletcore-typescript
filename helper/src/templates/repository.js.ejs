@@ -1,0 +1,24 @@
+import <%= props.name %> from "../entities/<%= props.name.toLowerCase() %>";
+import {
+  SearchableRepositoryInterface,
+  SearchParams as DefaultSearchParams,
+  SearchResult as DefaultSearchResult,
+} from "#shared/repository/repository-contracts";
+
+export namespace <%= props.name %>Repository {
+  export type Filter = string;
+
+  export class SearchParams extends DefaultSearchParams<Filter> {}
+
+  export class SearchResult extends DefaultSearchResult<<%= props.name %>, Filter> {}
+
+  export interface Repository
+    extends SearchableRepositoryInterface<
+      <%= props.name %>,
+      Filter,
+      SearchParams,
+      SearchResult
+    > {}
+}
+
+export default <%= props.name %>Repository;

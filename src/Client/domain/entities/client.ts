@@ -1,10 +1,13 @@
 import ClientValidatorFactory from "../validators/client.validator";
 import { EntityValidationError } from "#shared/errors";
 import Entity from "#shared/entities/entity";
+import Account from "#account/domain/entities/account";
 
 export type ClientProperties = {
+  id?: string;
   name: string;
   email: string;
+  accounts?: Account[];
   created_at?: Date;
   updated_at?: Date;
 };
@@ -26,12 +29,24 @@ export default class Client extends Entity<ClientProperties> {
     this.email = email;
   }
 
+  addAccount(account: Account) {
+    if (account.client.id !== this.id) {
+      throw new Error("Account does not belong to client");
+    }
+    this.accounts = this.accounts
+      ? this.accounts.push(account)
+      : ([account] as any);
+  }
+
   get name() {
     return this.props.name;
   }
 
+  get accounts() {
+    return this.props.accounts;
+  }
+
   get email() {
-    return this.props.email;
     return this.props.email;
   }
 
@@ -49,6 +64,10 @@ export default class Client extends Entity<ClientProperties> {
 
   private set email(value) {
     this.props.email = value;
+  }
+
+  private set accounts(value) {
+    this.props.accounts = value;
   }
 
   static validate(props: ClientProperties) {

@@ -7,6 +7,7 @@ import {
 } from "class-validator";
 import { ClientProperties } from "../entities/client";
 import ClassValidatorFields from "#shared/validators/class-validator-fields";
+import Account from "#account/domain/entities/account";
 
 export class ClientRules {
   @MaxLength(255)
@@ -18,6 +19,9 @@ export class ClientRules {
   @IsOptional()
   email: string;
 
+  @IsOptional()
+  accounts: Account[];
+
   @IsDate()
   @IsOptional()
   created_at: Date;
@@ -26,8 +30,14 @@ export class ClientRules {
   @IsOptional()
   updated_at: Date;
 
-  constructor({ name, email, created_at, updated_at }: ClientProperties) {
-    Object.assign(this, { name, email, created_at, updated_at });
+  constructor({
+    name,
+    email,
+    accounts,
+    created_at,
+    updated_at,
+  }: ClientProperties) {
+    Object.assign(this, { name, email, accounts, created_at, updated_at });
   }
 }
 

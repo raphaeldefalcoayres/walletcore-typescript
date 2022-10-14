@@ -53,7 +53,7 @@ describe("ListCategoriesUseCase Unit Tests", () => {
     });
   });
 
-  it("should returns output using empty input with categories ordered by created_at", async () => {
+  it("should returns output using empty input with clients ordered by created_at", async () => {
     const items = [
       new Client({ name: "test 1", email: "test 1" }),
       new Client({

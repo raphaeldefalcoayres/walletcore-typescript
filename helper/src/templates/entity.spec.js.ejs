@@ -1,0 +1,10 @@
+import { validate } from "uuid";
+import <%= props.name %>, { <%= props.name %>Properties } from "./<%= props.name.toLowerCase() %>";
+
+type Arrange = { props: <%= props.name %>Properties; id?: string };
+
+describe("<%= props.name %> Unit Tests", () => {
+  test("getter of id field", () => {
+    expect(true).toBe(true)
+  });
+});

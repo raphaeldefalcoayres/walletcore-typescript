@@ -1,38 +1,45 @@
 import { NotFoundError } from "#shared/errors";
+import Account from "#account/domain/entities/account";
+import UpdateAccountUseCase from "../../update-accounts.use-case";
+import { AccountInMemoryRepository } from "#account/infra/repository/db/in-memory";
 import Client from "#client/domain/entities/client";
-import UpdateClientUseCase from "../../update-clients.use-case";
-import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
 
-describe("UpdateClientUseCase Unit Tests", () => {
-  let useCase: UpdateClientUseCase.UseCase;
-  let repository: ClientInMemoryRepository;
+describe("UpdateAccountUseCase Unit Tests", () => {
+  let useCase: UpdateAccountUseCase.UseCase;
+  let repository: AccountInMemoryRepository;
 
   beforeEach(() => {
-    repository = new ClientInMemoryRepository();
-    useCase = new UpdateClientUseCase.UseCase(repository);
+    repository = new AccountInMemoryRepository();
+    useCase = new UpdateAccountUseCase.UseCase(repository);
+  });
+
+  const client = new Client({
+    id: "1",
+    name: "client1",
+    email: "client1@email.com",
   });
 
   it("should throws error when entity not found", async () => {
     await expect(() =>
-      useCase.execute({ id: "fake id", name: "fake", email: "fake email" })
+      useCase.execute({ id: "fake id", client: client, balance: 1 })
     ).rejects.toThrow(new NotFoundError(`Entity Not Found using ID fake id`));
   });
 
-  it("should update a client", async () => {
+  it("should update a account", async () => {
     const spyUpdate = jest.spyOn(repository, "update");
-    const entity = new Client({ name: "Name", email: "Email" });
+    const entity = new Account({ client: client, balance: 1 });
     repository.items = [entity];
 
     let output = await useCase.execute({
       id: entity.id,
-      name: "test",
-      email: "test",
+      client: client,
+      balance: 1,
     });
     expect(spyUpdate).toHaveBeenCalledTimes(1);
     expect(output).toStrictEqual({
       id: entity.id,
-      name: "test",
-      email: "test",
+      client: client,
+      balance: 1,
       created_at: entity.created_at,
       updated_at: entity.updated_at,
     });
@@ -40,13 +47,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
     type Arrange = {
       input: {
         id: string;
-        name: string;
-        email: string;
+        client: Client;
+        balance: number;
       };
       expected: {
         id: string;
-        name: string;
-        email: string;
+        client: Client;
+        balance: number;
         created_at: Date;
         updated_at: Date;
       };
@@ -55,13 +62,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
       {
         input: {
           id: entity.id,
-          name: "test",
-          email: "some email",
+          client: client,
+          balance: 1,
         },
         expected: {
           id: entity.id,
-          name: "test",
-          email: "some email",
+          client: client,
+          balance: 1,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
         },
@@ -69,13 +76,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
       {
         input: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
         },
         expected: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
         },
@@ -83,13 +90,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
       {
         input: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
         },
         expected: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
         },
@@ -97,13 +104,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
       {
         input: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
         },
         expected: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
         },
@@ -111,13 +118,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
       {
         input: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
         },
         expected: {
           id: entity.id,
-          name: "test",
-          email: "test",
+          client: client,
+          balance: 1,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
         },
@@ -125,13 +132,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
       {
         input: {
           id: entity.id,
-          name: "test",
-          email: "some email",
+          client: client,
+          balance: 1,
         },
         expected: {
           id: entity.id,
-          name: "test",
-          email: "some email",
+          client: client,
+          balance: 1,
           created_at: entity.created_at,
           updated_at: entity.updated_at,
         },
@@ -141,13 +148,13 @@ describe("UpdateClientUseCase Unit Tests", () => {
     for (const i of arrange) {
       output = await useCase.execute({
         id: i.input.id,
-        name: i.input.name,
-        email: i.input.email,
+        client: i.input.client,
+        balance: i.input.balance,
       });
       expect(output).toStrictEqual({
         id: entity.id,
-        name: i.expected.name,
-        email: i.expected.email,
+        client: i.expected.client,
+        balance: i.expected.balance,
         created_at: i.expected.created_at,
         updated_at: i.expected.updated_at,
       });

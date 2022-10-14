@@ -1,0 +1,18 @@
+import Client from "#client/domain/entities/client";
+import <%= props.name %>ValidatorFactory, {
+  <%= props.name %>Rules,
+  <%= props.name %>Validator,
+} from "./<%= props.name.toLowerCase() %>.validator";
+describe("<%= props.name %>Validator Tests", () => {
+  let validator: <%= props.name %>Validator;
+
+  beforeEach(() => (validator = <%= props.name %>ValidatorFactory.create()));
+    test.each(arrange)("validate %o", (item) => {
+      const isValid = validator.validate(item as any);
+      expect(isValid).toBeTruthy();
+      expect(validator.validatedData).toStrictEqual(
+        new <%= props.name %>Rules(item as any)
+      );
+    });
+  });
+});

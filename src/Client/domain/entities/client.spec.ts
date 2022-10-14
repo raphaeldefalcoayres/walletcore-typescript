@@ -1,3 +1,4 @@
+import Account from "#account/domain/entities/account";
 import { validate } from "uuid";
 import Client, { ClientProperties } from "./client";
 
@@ -50,5 +51,20 @@ describe("Client Unit Tests", () => {
     const client = new Client(arrange);
 
     expect(client.email).toBe("client1@email.com");
+  });
+
+  test("add account", () => {
+    const client = new Client({
+      id: "1",
+      name: "client1",
+      email: "client1@email.com",
+    });
+    const account = new Account({
+      client,
+      balance: 0,
+    });
+    client.addAccount(account);
+
+    expect(client.accounts.length).toBe(1);
   });
 });

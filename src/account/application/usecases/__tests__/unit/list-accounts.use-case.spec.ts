@@ -1,20 +1,21 @@
-import { ClientRepository } from "#client/domain";
+import { AccountRepository } from "#account/domain";
 
+import Account from "#account/domain/entities/account";
+import { AccountInMemoryRepository } from "#account/infra/repository/db/in-memory";
 import Client from "#client/domain/entities/client";
-import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
-import ListCategoriesUseCase from "../../list-clients.use-case";
+import ListCategoriesUseCase from "../../list-accounts.use-case";
 
 describe("ListCategoriesUseCase Unit Tests", () => {
   let useCase: ListCategoriesUseCase.UseCase;
-  let repository: ClientInMemoryRepository;
+  let repository: AccountInMemoryRepository;
 
   beforeEach(() => {
-    repository = new ClientInMemoryRepository();
+    repository = new AccountInMemoryRepository();
     useCase = new ListCategoriesUseCase.UseCase(repository);
   });
 
   test("toOutput method", () => {
-    let result = new ClientRepository.SearchResult({
+    let result = new AccountRepository.SearchResult({
       items: [],
       total: 1,
       current_page: 1,
@@ -32,8 +33,13 @@ describe("ListCategoriesUseCase Unit Tests", () => {
       last_page: 1,
     });
 
-    const entity = new Client({ name: "Name", email: "Email" });
-    result = new ClientRepository.SearchResult({
+    const client = new Client({
+      id: "1",
+      name: "client1",
+      email: "client1@email.com",
+    });
+    const entity = new Account({ client: client, balance: 1 });
+    result = new AccountRepository.SearchResult({
       items: [entity],
       total: 1,
       current_page: 1,
@@ -53,12 +59,22 @@ describe("ListCategoriesUseCase Unit Tests", () => {
     });
   });
 
-  it("should returns output using empty input with categories ordered by created_at", async () => {
+  it("should returns output using empty input with accounts ordered by created_at", async () => {
+    const client1 = new Client({
+      id: "1",
+      name: "client1",
+      email: "client1@email.com",
+    });
+    const client2 = new Client({
+      id: "2",
+      name: "client2",
+      email: "client2@email.com",
+    });
     const items = [
-      new Client({ name: "test 1", email: "test 1" }),
-      new Client({
-        name: "test 2",
-        email: "test 2",
+      new Account({ client: client1, balance: 1 }),
+      new Account({
+        client: client2,
+        balance: 1,
         created_at: new Date(new Date().getTime() + 100),
       }),
     ];
@@ -75,68 +91,60 @@ describe("ListCategoriesUseCase Unit Tests", () => {
   });
 
   it("should returns output using pagination, sort and filter", async () => {
+    const client1 = new Client({
+      id: "1",
+      name: "client1",
+      email: "client1@email.com",
+    });
+    const client2 = new Client({
+      id: "2",
+      name: "client2",
+      email: "client2@email.com",
+    });
     const items = [
-      new Client({ name: "a", email: "b" }),
-      new Client({
-        name: "AAA",
-        email: "BBB",
-      }),
-      new Client({
-        name: "AaA",
-        email: "BbB",
-      }),
-      new Client({
-        name: "b",
-        email: "b",
-      }),
-      new Client({
-        name: "c",
-        email: "c",
-      }),
+      new Account({ client: client1, balance: 1 }),
+      new Account({ client: client2, balance: 2 }),
     ];
     repository.items = items;
 
     let output = await useCase.execute({
       page: 1,
       per_page: 2,
-      sort: "name",
-      filter: "a",
+      sort: "created_at",
     });
     expect(output).toStrictEqual({
-      items: [items[1].toJSON(), items[2].toJSON()],
-      total: 3,
+      items: [items[0].toJSON(), items[1].toJSON()],
+      total: 2,
       current_page: 1,
       per_page: 2,
-      last_page: 2,
+      last_page: 1,
     });
 
     output = await useCase.execute({
       page: 2,
       per_page: 2,
-      sort: "name",
-      filter: "a",
+      sort: "created_at",
     });
     expect(output).toStrictEqual({
-      items: [items[0].toJSON()],
-      total: 3,
+      items: [],
+      total: 2,
       current_page: 2,
       per_page: 2,
-      last_page: 2,
+      last_page: 1,
     });
 
     output = await useCase.execute({
       page: 1,
       per_page: 2,
-      sort: "name",
+      sort: "created_at",
       sort_dir: "desc",
-      filter: "a",
     });
     expect(output).toStrictEqual({
-      items: [items[0].toJSON(), items[2].toJSON()],
-      total: 3,
+      items: [items[0].toJSON(), items[1].toJSON()],
+      total: 2,
       current_page: 1,
       per_page: 2,
-      last_page: 2,
+      last_page: 1,
     });
   });
 });

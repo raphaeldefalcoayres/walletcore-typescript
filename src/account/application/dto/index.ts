@@ -1,3 +1,3 @@
 // created from 'create-ts-index'
 
-export * from './client-output';
+export * from "./account-output";

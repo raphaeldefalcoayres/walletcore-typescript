@@ -4,22 +4,22 @@ import {
   PaginationOutputDto,
   PaginationOutputMapper,
 } from "#shared/dto/pagination-output";
-import { ClientRepository } from "#client/domain";
-import { ClientOutput, ClientOutputMapper } from "../dto";
+import { AccountRepository } from "#account/domain";
+import { AccountOutput, AccountOutputMapper } from "../dto";
 
 export namespace ListCategoriesUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private clientRepo: ClientRepository.Repository) {}
+    constructor(private accountRepo: AccountRepository.Repository) {}
     //
     async execute(input: Input): Promise<Output> {
-      const params = new ClientRepository.SearchParams(input);
-      const searchResult = await this.clientRepo.search(params);
+      const params = new AccountRepository.SearchParams(input);
+      const searchResult = await this.accountRepo.search(params);
       return this.toOutput(searchResult);
     }
 
-    private toOutput(searchResult: ClientRepository.SearchResult): Output {
+    private toOutput(searchResult: AccountRepository.SearchResult): Output {
       const items = searchResult.items.map((i) => {
-        return ClientOutputMapper.toOutput(i);
+        return AccountOutputMapper.toOutput(i);
       });
       return PaginationOutputMapper.toOutput(items, searchResult);
     }
@@ -27,13 +27,13 @@ export namespace ListCategoriesUseCase {
 
   export type Input = SearchInputDto;
 
-  export type Output = PaginationOutputDto<ClientOutput>;
+  export type Output = PaginationOutputDto<AccountOutput>;
 }
 
 export default ListCategoriesUseCase;
 
 //request e response http
-//dados - Client - dados de saida
+//dados - Account - dados de saida
 
 //UseCase -> domain
 

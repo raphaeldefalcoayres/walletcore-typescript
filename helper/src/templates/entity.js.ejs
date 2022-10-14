@@ -1,0 +1,38 @@
+import <%= props.name %>ValidatorFactory from "../validators/<%= props.name.toLowerCase() %>.validator";
+import { EntityValidationError } from "#shared/errors";
+import Entity from "#shared/entities/entity";
+
+export type <%= props.name %>Properties = {
+  id?: string;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
+export default class <%= props.name %> extends Entity<<%= props.name %>Properties> {
+  constructor(public readonly props: <%= props.name %>Properties, id?: string) {
+    super(props, id);
+    <%= props.name %>.validate(props);
+    this.props.created_at = this.created_at ?? new Date();
+    this.props.updated_at = this.updated_at ?? new Date();
+  }
+
+  get created_at() {
+    return this.props.created_at;
+  }
+
+  get updated_at() {
+    return this.props.updated_at;
+  }
+
+  private set updated_at(value) {
+    this.props.updated_at = value;
+  }
+
+  static validate(props: <%= props.name %>Properties) {
+    const validator = <%= props.name %>ValidatorFactory.create();
+    const isValid = validator.validate(props);
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
+    }
+  }
+}

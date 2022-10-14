@@ -1,0 +1,31 @@
+import { IsDate, IsOptional } from "class-validator";
+import { <%= props.name %>Properties } from "../entities/<%= props.name.toLowerCase() %>";
+import ClassValidatorFields from "#shared/validators/class-validator-fields";
+
+export class <%= props.name %>Rules {
+  @IsDate()
+  @IsOptional()
+  created_at: Date;
+
+  @IsDate()
+  @IsOptional()
+  updated_at: Date;
+
+  constructor({ created_at, updated_at }: <%= props.name %>Properties) {
+    Object.assign(this, { created_at, updated_at });
+  }
+}
+
+export class <%= props.name %>Validator extends ClassValidatorFields<<%= props.name %>Rules> {
+  validate(data: <%= props.name %>Properties): boolean {
+    return super.validate(new <%= props.name %>Rules(data ?? ({} as any)));
+  }
+}
+
+export class <%= props.name %>ValidatorFactory {
+  static create() {
+    return new <%= props.name %>Validator();
+  }
+}
+
+export default <%= props.name %>ValidatorFactory;
