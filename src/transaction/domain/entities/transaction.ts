@@ -1,17 +1,17 @@
-import <%= props.name %>ValidatorFactory from "../validators/<%= props.name.toLowerCase() %>.validator";
+import TransactionValidatorFactory from "../validators/transaction.validator";
 import { EntityValidationError } from "#shared/errors";
 import Entity from "#shared/entities/entity";
 
-export type <%= props.name %>Properties = {
+export type TransactionProperties = {
   id?: string;
   created_at?: Date;
   updated_at?: Date;
 };
 
-export default class <%= props.name %> extends Entity<<%= props.name %>Properties> {
-  constructor(public readonly props: <%= props.name %>Properties, id?: string) {
+export default class Transaction extends Entity<TransactionProperties> {
+  constructor(public readonly props: TransactionProperties, id?: string) {
     super(props, id);
-    <%= props.name %>.validate(props);
+    Transaction.validate(props);
     this.props.created_at = this.created_at ?? new Date();
     this.props.updated_at = this.updated_at ?? new Date();
   }
@@ -30,8 +30,8 @@ export default class <%= props.name %> extends Entity<<%= props.name %>Propertie
     this.props.updated_at = value;
   }
 
-  static validate(props: <%= props.name %>Properties) {
-    const validator = <%= props.name %>ValidatorFactory.create();
+  static validate(props: TransactionProperties) {
+    const validator = TransactionValidatorFactory.create();
     const isValid = validator.validate(props);
     if (!isValid) {
       throw new EntityValidationError(validator.errors);

@@ -1,16 +1,16 @@
-import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
-import Create<%= props.name %>UseCase from "../../create-<%= props.name.toLowerCase() %>.usecase";
+import { TransactionInMemoryRepository } from "#transaction/infra/repository/db/in-memory";
+import CreateTransactionUseCase from "../../create-transaction.usecase";
 
-describe("Create<%= props.name %>UseCase Unit Tests", () => {
-  let useCase: Create<%= props.name %>UseCase.UseCase;
-  let repository: <%= props.name %>InMemoryRepository;
+describe("CreateTransactionUseCase Unit Tests", () => {
+  let useCase: CreateTransactionUseCase.UseCase;
+  let repository: TransactionInMemoryRepository;
 
   beforeEach(() => {
-    repository = new <%= props.name %>InMemoryRepository();
-    useCase = new Create<%= props.name %>UseCase.UseCase(repository);
+    repository = new TransactionInMemoryRepository();
+    useCase = new CreateTransactionUseCase.UseCase(repository);
   });
 
-  it("should create a <%= props.name.toLowerCase() %>", async () => {
+  it("should create a transaction", async () => {
     const spyInsert = jest.spyOn(repository, "insert");
     let output = await useCase.execute({ client: client, balance: 1 });
     expect(spyInsert).toHaveBeenCalledTimes(1);

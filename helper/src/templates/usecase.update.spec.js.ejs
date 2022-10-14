@@ -1,0 +1,120 @@
+import { NotFoundError } from "#shared/errors";
+import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
+import Update<%= props.name %>UseCase from "../../update-<%= props.name.toLowerCase() %>s.use-case";
+import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
+
+describe("Update<%= props.name %>UseCase Unit Tests", () => {
+  let useCase: Update<%= props.name %>UseCase.UseCase;
+  let repository: <%= props.name %>InMemoryRepository;
+
+  beforeEach(() => {
+    repository = new <%= props.name %>InMemoryRepository();
+    useCase = new Update<%= props.name %>UseCase.UseCase(repository);
+  });
+
+  it("should throws error when entity not found", async () => {
+    await expect(() =>
+      useCase.execute({ id: "fake id" })
+    ).rejects.toThrow(new NotFoundError(`Entity Not Found using ID fake id`));
+  });
+
+  it("should update a <%= props.name.toLowerCase() %>", async () => {
+    const spyUpdate = jest.spyOn(repository, "update");
+    const entity = new <%= props.name %>({});
+    repository.items = [entity];
+
+    let output = await useCase.execute({
+      id: entity.id,
+    });
+    expect(spyUpdate).toHaveBeenCalledTimes(1);
+    expect(output).toStrictEqual({
+      id: entity.id,
+      created_at: entity.created_at,
+      updated_at: entity.updated_at,
+    });
+
+    type Arrange = {
+      input: {
+        id: string;
+      };
+      expected: {
+        id: string;
+        created_at: Date;
+        updated_at: Date;
+      };
+    };
+    const arrange: Arrange[] = [
+      {
+        input: {
+          id: entity.id,
+        },
+        expected: {
+          id: entity.id,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        },
+      },
+      {
+        input: {
+          id: entity.id,
+        },
+        expected: {
+          id: entity.id,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        },
+      },
+      {
+        input: {
+          id: entity.id,
+        },
+        expected: {
+          id: entity.id,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        },
+      },
+      {
+        input: {
+          id: entity.id,
+        },
+        expected: {
+          id: entity.id,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        },
+      },
+      {
+        input: {
+          id: entity.id,
+        },
+        expected: {
+          id: entity.id,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        },
+      },
+      {
+        input: {
+          id: entity.id,
+        },
+        expected: {
+          id: entity.id,
+          created_at: entity.created_at,
+          updated_at: entity.updated_at,
+        },
+      },
+    ];
+
+    for (const i of arrange) {
+      output = await useCase.execute({
+        id: i.input.id,
+      });
+      expect(output).toStrictEqual({
+        id: entity.id,
+        created_at: i.expected.created_at,
+        updated_at: i.expected.updated_at,
+      });
+    }
+  });
+});

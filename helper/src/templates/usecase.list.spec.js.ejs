@@ -1,0 +1,123 @@
+import { <%= props.name %>Repository } from "#<%= props.name.toLowerCase() %>/domain";
+
+import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
+import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
+import Client from "#client/domain/entities/client";
+import ListCategoriesUseCase from "../../list-<%= props.name.toLowerCase() %>s.use-case";
+
+describe("ListCategoriesUseCase Unit Tests", () => {
+  let useCase: ListCategoriesUseCase.UseCase;
+  let repository: <%= props.name %>InMemoryRepository;
+
+  beforeEach(() => {
+    repository = new <%= props.name %>InMemoryRepository();
+    useCase = new ListCategoriesUseCase.UseCase(repository);
+  });
+
+  test("toOutput method", () => {
+    let result = new <%= props.name %>Repository.SearchResult({
+      items: [],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+      sort: null,
+      sort_dir: null,
+      filter: null,
+    });
+    let output = useCase["toOutput"](result);
+    expect(output).toStrictEqual({
+      items: [],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+      last_page: 1,
+    });
+
+    const entity = new <%= props.name %>({});
+    result = new <%= props.name %>Repository.SearchResult({
+      items: [entity],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+      sort: null,
+      sort_dir: null,
+      filter: null,
+    });
+
+    output = useCase["toOutput"](result);
+    expect(output).toStrictEqual({
+      items: [entity.toJSON()],
+      total: 1,
+      current_page: 1,
+      per_page: 2,
+      last_page: 1,
+    });
+  });
+
+  it("should returns output using empty input with <%= props.name.toLowerCase() %>s ordered by created_at", async () => {
+    const items = [
+      new <%= props.name %>({}),
+      new <%= props.name %>({
+        created_at: new Date(new Date().getTime() + 100),
+      }),
+    ];
+    repository.items = items;
+
+    const output = await useCase.execute({});
+    expect(output).toStrictEqual({
+      items: [...items].reverse().map((i) => i.toJSON()),
+      total: 2,
+      current_page: 1,
+      per_page: 15,
+      last_page: 1,
+    });
+  });
+
+  it("should returns output using pagination, sort and filter", async () => {
+    const items = [
+      new <%= props.name %>({}),
+      new <%= props.name %>({}),
+    ];
+    repository.items = items;
+
+    let output = await useCase.execute({
+      page: 1,
+      per_page: 2,
+      sort: "created_at",
+    });
+    expect(output).toStrictEqual({
+      items: [items[0].toJSON(), items[1].toJSON()],
+      total: 2,
+      current_page: 1,
+      per_page: 2,
+      last_page: 1,
+    });
+
+    output = await useCase.execute({
+      page: 2,
+      per_page: 2,
+      sort: "created_at",
+    });
+    expect(output).toStrictEqual({
+      items: [],
+      total: 2,
+      current_page: 2,
+      per_page: 2,
+      last_page: 1,
+    });
+
+    output = await useCase.execute({
+      page: 1,
+      per_page: 2,
+      sort: "created_at",
+      sort_dir: "desc",
+    });
+    expect(output).toStrictEqual({
+      items: [items[0].toJSON(), items[1].toJSON()],
+      total: 2,
+      current_page: 1,
+      per_page: 2,
+      last_page: 1,
+    });
+  });
+});

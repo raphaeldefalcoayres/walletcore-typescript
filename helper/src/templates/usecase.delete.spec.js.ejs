@@ -1,0 +1,30 @@
+import <%= props.name %> from '#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>'
+import { <%= props.name %>InMemoryRepository } from '#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory'
+import Client from '#client/domain/entities/client'
+import { NotFoundError } from '#shared/errors'
+import Delete<%= props.name %>UseCase from '../../delete-<%= props.name.toLowerCase() %>.use-case'
+
+describe('Delete<%= props.name %>UseCase Unit Tests', () => {
+  let useCase: Delete<%= props.name %>UseCase.UseCase
+  let repository: <%= props.name %>InMemoryRepository
+
+  beforeEach(() => {
+    repository = new <%= props.name %>InMemoryRepository()
+    useCase = new Delete<%= props.name %>UseCase.UseCase(repository)
+  })
+
+  it('should throws error when entity not found', async () => {
+    await expect(() => useCase.execute({ id: 'fake id' })).rejects.toThrow(
+      new NotFoundError(`Entity Not Found using ID fake id`)
+    )
+  })
+
+  it('should delete a <%= props.name.toLowerCase() %>', async () => {
+    const items = [new <%= props.name %>({})]
+    repository.items = items
+    await useCase.execute({
+      id: items[0].id,
+    })
+    expect(repository.items).toHaveLength(0)
+  })
+})

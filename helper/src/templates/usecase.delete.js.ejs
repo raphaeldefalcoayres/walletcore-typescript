@@ -1,0 +1,20 @@
+import { <%= props.name %>Repository } from "#<%= props.name.toLowerCase() %>/domain";
+import { default as DefaultUseCase } from "#shared/usecases/use-case";
+
+export namespace Delete<%= props.name %>UseCase {
+  export class UseCase implements DefaultUseCase<Input, Output> {
+    constructor(private <%= props.name.toLowerCase() %>Repository: <%= props.name %>Repository.Repository) {}
+
+    async execute(input: Input): Promise<Output> {
+      await this.<%= props.name.toLowerCase() %>Repository.delete(input.id);
+    }
+  }
+
+  export type Input = {
+    id: string;
+  };
+
+  type Output = void;
+}
+
+export default Delete<%= props.name %>UseCase;

@@ -1,15 +1,17 @@
 import { <%= props.name %>Repository } from "#<%= props.name.toLowerCase() %>/domain";
-import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
 import { <%= props.name %>Output, <%= props.name %>OutputMapper } from "../dto";
 
-export namespace Create<%= props.name %>UseCase {
+export namespace Update<%= props.name %>UseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private <%= props.name.toLowerCase() %>Repo: <%= props.name %>Repository.Repository) {}
 
     async execute(input: Input): Promise<Output> {
-      const entity = new <%= props.name %>(input);
-      await this.<%= props.name.toLowerCase() %>Repo.insert(entity);
+      const entity = await this.<%= props.name.toLowerCase() %>Repo.findById(input.id);
+      entity.update();
+
+      await this.<%= props.name.toLowerCase() %>Repo.update(entity);
+
       return <%= props.name %>OutputMapper.toOutput(entity);
     }
   }
@@ -21,7 +23,7 @@ export namespace Create<%= props.name %>UseCase {
   export type Output = <%= props.name %>Output;
 }
 
-export default Create<%= props.name %>UseCase;
+export default Update<%= props.name %>UseCase;
 
 //dados - <%= props.name %> - dados de saida
 
