@@ -32,7 +32,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
       mockFactory = jest
         .fn()
         .mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce");
-      const fakerMany = ClientFakeBuilder.theCategories(2);
+      const fakerMany = ClientFakeBuilder.theClients(2);
       fakerMany.withUUID(mockFactory);
       fakerMany.build();
 
@@ -73,7 +73,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
       const client = faker.build();
       expect(client.name).toBe(`test name 0`);
 
-      const fakerMany = ClientFakeBuilder.theCategories(2);
+      const fakerMany = ClientFakeBuilder.theClients(2);
       fakerMany.withName((index) => `test name ${index}`);
       const clients = fakerMany.build();
 
@@ -137,7 +137,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
       const client = faker.build();
       expect(client.email).toBe(`test email 0`);
 
-      const fakerMany = ClientFakeBuilder.theCategories(2);
+      const fakerMany = ClientFakeBuilder.theClients(2);
       fakerMany.withEmail((index) => `test email ${index}`);
       const clients = fakerMany.build();
 
@@ -177,7 +177,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
       const client = faker.build();
       expect(client.created_at.getTime()).toBe(date.getTime() + 2);
 
-      const fakerMany = ClientFakeBuilder.theCategories(2);
+      const fakerMany = ClientFakeBuilder.theClients(2);
       fakerMany.withCreatedAt((index) => new Date(date.getTime() + index + 2));
       const clients = fakerMany.build();
 
@@ -211,7 +211,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
   });
 
   it("should create many clients", () => {
-    const faker = ClientFakeBuilder.theCategories(2);
+    const faker = ClientFakeBuilder.theClients(2);
     const uniqueEntityId = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
     let clients = faker.build();
 

@@ -1,26 +1,29 @@
+import { ClientFakeBuilder } from "#client/domain";
+import Client from "#client/domain/entities/client";
 import { Chance } from "chance";
-import Client from "./client";
+import Account from "./account";
 
 type PropOrFactory<T> = T | ((index: number) => T);
 
-export class ClientFakeBuilder<TBuild = any> {
+export class AccountFakeBuilder<TBuild = any> {
   // auto generated in entity
   private _uuid: any = undefined;
-  private _name: PropOrFactory<string> = (_index) => this.chance.word();
-  private _email: PropOrFactory<string | null> = (_index) =>
-    this.chance.email();
+  private _client: PropOrFactory<Client> = (_index) =>
+    ClientFakeBuilder.aClient().build();
+  private _balance: PropOrFactory<number | null> = (_index) =>
+    this.chance.floating();
   // auto generated in entity
   private _created_at: any = undefined;
   private _updated_at: any = undefined;
 
   private countObjs;
 
-  static aClient() {
-    return new ClientFakeBuilder<Client>();
+  static aAccount() {
+    return new AccountFakeBuilder<Account>();
   }
 
-  static theClients(countObjs: number) {
-    return new ClientFakeBuilder<Client[]>(countObjs);
+  static theAccounts(countObjs: number) {
+    return new AccountFakeBuilder<Account[]>(countObjs);
   }
 
   private chance: Chance.Chance;
@@ -35,33 +38,18 @@ export class ClientFakeBuilder<TBuild = any> {
     return this;
   }
 
-  withName(valueOrFactory: PropOrFactory<string>) {
-    this._name = valueOrFactory;
+  withClient(valueOrFactory: PropOrFactory<Client>) {
+    this._client = valueOrFactory;
     return this;
   }
 
-  withInvalidNameEmpty(value: "" | null | undefined) {
-    this._name = value;
+  withBalance(valueOrFactory: PropOrFactory<number>) {
+    this._balance = valueOrFactory;
     return this;
   }
 
-  withInvalidNameNotAString(value?: any) {
-    this._name = value ?? 5;
-    return this;
-  }
-
-  withInvalidNameTooLong(value?: string) {
-    this._name = value ?? this.chance.word({ length: 256 });
-    return this;
-  }
-
-  withEmail(valueOrFactory: PropOrFactory<string | null>) {
-    this._email = valueOrFactory;
-    return this;
-  }
-
-  withInvalidEmailNotAString(value?: any) {
-    this._email = value ?? 5;
+  withInvalidBalanceNotAString(value?: any) {
+    this._balance = value ?? 5;
     return this;
   }
 
@@ -76,12 +64,12 @@ export class ClientFakeBuilder<TBuild = any> {
   }
 
   build(): TBuild {
-    const clients = new Array(this.countObjs).fill(undefined).map(
+    const accounts = new Array(this.countObjs).fill(undefined).map(
       (_, index) =>
-        new Client(
+        new Account(
           {
-            name: this.callFactory(this._name, index),
-            email: this.callFactory(this._email, index),
+            client: this.callFactory(this._client, index),
+            balance: this.callFactory(this._balance, index),
             ...(this._created_at && {
               created_at: this.callFactory(this._created_at, index),
             }),
@@ -89,19 +77,19 @@ export class ClientFakeBuilder<TBuild = any> {
           !this._uuid ? undefined : this.callFactory(this._uuid, index)
         )
     );
-    return this.countObjs === 1 ? (clients[0] as any) : clients;
+    return this.countObjs === 1 ? (accounts[0] as any) : accounts;
   }
 
   get uuid() {
     return this.getValue("uuid");
   }
 
-  get name() {
-    return this.getValue("name");
+  get client() {
+    return this.getValue("client");
   }
 
-  get email() {
-    return this.getValue("email");
+  get balance() {
+    return this.getValue("balance");
   }
 
   get created_at() {

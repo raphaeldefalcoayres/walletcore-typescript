@@ -18,7 +18,8 @@
     "baseUrl": "./src",
     "paths": {
       "#shared/*": ["./shared/*"],
-      "#client/*": ["./client/*"]
+      "#client/*": ["./client/*"],
+      "#account/*": ["./account/*"]
     },
     "outDir": "./dist"
   },

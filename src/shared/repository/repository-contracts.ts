@@ -144,8 +144,6 @@ export class SearchResult<E extends Entity = Entity, Filter = string> {
   }
 }
 
-//client.props.name
-
 //Entidade e Objetos
 
 export interface SearchableRepositoryInterface<

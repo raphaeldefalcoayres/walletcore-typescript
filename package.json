@@ -11,6 +11,7 @@
     "build:w": "tsc -b ./tsconfig.json -w",
     "clean:tsc": "rm tsconfig.tsbuildinfo",
     "test": "jest",
+    "test:watch": "jest ---watchAll",
     "test:cov": "npm run test -- --coverage",
     "cti": "cti",
     "cti:make": "sh ./cti.sh"
@@ -42,7 +43,11 @@
     "#client/domain": "./dist/client/domain/index.js",
     "#client/infra": "./dist/client/infra/index.js",
     "#client/application": "./dist/client/application/index.js",
-    "#client/*": "./dist/client/*.js"
+    "#client/*": "./dist/client/*.js",
+    "#account/domain": "./dist/account/domain/index.js",
+    "#account/infra": "./dist/account/infra/index.js",
+    "#account/application": "./dist/account/application/index.js",
+    "#account/*": "./dist/account/*.js"
   },
   "exports": {
     "./shared/dto": "./dist/shared/dto/index.js",
@@ -55,7 +60,10 @@
     "./shared/validators": "./dist/shared/validators/index.js",
     "./client/application": "./dist/client/application/index.js",
     "./client/domain": "./dist/client/domain/index.js",
-    "./client/infra": "./dist/client/infra/index.js"
+    "./client/infra": "./dist/client/infra/index.js",
+    "./account/application": "./dist/account/application/index.js",
+    "./account/domain": "./dist/account/domain/index.js",
+    "./account/infra": "./dist/account/infra/index.js"
   },
   "typesVersions": {
     ">=4.0": {
@@ -91,6 +99,15 @@
       ],
       "client/infra": [
         "./dist/client/infra/index.d.ts"
+      ],
+      "account/application": [
+        "./dist/account/application/index.d.ts"
+      ],
+      "account/domain": [
+        "./dist/account/domain/index.d.ts"
+      ],
+      "account/infra": [
+        "./dist/account/infra/index.d.ts"
       ]
     }
   }
