@@ -37,6 +37,12 @@ module.exports = {
     })
 
     await generate({
+      template: 'dto.spec.js.ejs',
+      target: `src/${name.toLowerCase()}/application/dto/${name.toLowerCase()}.output.spec.ts`,
+      props: { name },
+    })
+
+    await generate({
       template: 'dto.js.ejs',
       target: `src/${name.toLowerCase()}/application/dto/${name.toLowerCase()}.output.ts`,
       props: { name },
@@ -60,65 +66,75 @@ module.exports = {
       props: { name },
     })
 
-    await generate({
-      template: 'usecase.create.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/create-${name.toLowerCase()}.use-case.ts`,
-      props: { name },
-    })
+    if (!parameters.options.withoutCreate) {
+      await generate({
+        template: 'usecase.create.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/create-${name.toLowerCase()}.use-case.ts`,
+        props: { name },
+      })
 
-    await generate({
-      template: 'usecase.create.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/create-${name.toLowerCase()}.use-case.spec.ts`,
-      props: { name },
-    })
+      await generate({
+        template: 'usecase.create.spec.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/create-${name.toLowerCase()}.use-case.spec.ts`,
+        props: { name },
+      })
+    }
 
-    await generate({
-      template: 'usecase.update.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/update-${name.toLowerCase()}.use-case.ts`,
-      props: { name },
-    })
+    if (!parameters.options.withoutUpdate) {
+      await generate({
+        template: 'usecase.update.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/update-${name.toLowerCase()}.use-case.ts`,
+        props: { name },
+      })
 
-    await generate({
-      template: 'usecase.update.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/update-${name.toLowerCase()}.use-case.spec.ts`,
-      props: { name },
-    })
+      await generate({
+        template: 'usecase.update.spec.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/update-${name.toLowerCase()}.use-case.spec.ts`,
+        props: { name },
+      })
+    }
 
-    await generate({
-      template: 'usecase.delete.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/delete-${name.toLowerCase()}.use-case.ts`,
-      props: { name },
-    })
+    if (!parameters.options.withoutDelete) {
+      await generate({
+        template: 'usecase.delete.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/delete-${name.toLowerCase()}.use-case.ts`,
+        props: { name },
+      })
 
-    await generate({
-      template: 'usecase.delete.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/delete-${name.toLowerCase()}.use-case.spec.ts`,
-      props: { name },
-    })
+      await generate({
+        template: 'usecase.delete.spec.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/delete-${name.toLowerCase()}.use-case.spec.ts`,
+        props: { name },
+      })
+    }
 
-    await generate({
-      template: 'usecase.get.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/get-${name.toLowerCase()}.use-case.ts`,
-      props: { name },
-    })
+    if (!parameters.options.withoutGet) {
+      await generate({
+        template: 'usecase.get.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/get-${name.toLowerCase()}.use-case.ts`,
+        props: { name },
+      })
 
-    await generate({
-      template: 'usecase.get.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/get-${name.toLowerCase()}.use-case.spec.ts`,
-      props: { name },
-    })
+      await generate({
+        template: 'usecase.get.spec.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/get-${name.toLowerCase()}.use-case.spec.ts`,
+        props: { name },
+      })
+    }
 
-    await generate({
-      template: 'usecase.list.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/list-${name.toLowerCase()}s.use-case.ts`,
-      props: { name },
-    })
+    if (!parameters.options.withoutList) {
+      await generate({
+        template: 'usecase.list.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/list-${name.toLowerCase()}s.use-case.ts`,
+        props: { name },
+      })
 
-    await generate({
-      template: 'usecase.list.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/list-${name.toLowerCase()}s.use-case.spec.ts`,
-      props: { name },
-    })
+      await generate({
+        template: 'usecase.list.spec.js.ejs',
+        target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/list-${name.toLowerCase()}s.use-case.spec.ts`,
+        props: { name },
+      })
+    }
 
     const packageJSON = await filesystem.readAsync('package.json', 'json')
 

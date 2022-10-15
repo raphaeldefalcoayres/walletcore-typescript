@@ -17,12 +17,22 @@
     "allowJs": true,
     "baseUrl": "./src",
     "paths": {
-      "#shared/*": ["./shared/*"],
-      "#client/*": ["./client/*"],
-      "#account/*": ["./account/*"],
-      "#transaction/*": ["./transaction/*"]
+      "#shared/*": [
+        "./shared/*"
+      ],
+      "#client/*": [
+        "./client/*"
+      ],
+      "#account/*": [
+        "./account/*"
+      ],
+      "#transaction/*": [
+        "./transaction/*"
+      ]
     },
     "outDir": "./dist"
   },
-  "include": ["./src/"]
+  "include": [
+    "./src/"
+  ]
 }
