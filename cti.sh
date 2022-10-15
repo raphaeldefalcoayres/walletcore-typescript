@@ -16,18 +16,6 @@ npm run cti create './src/account/application' -- -i '*spec.ts' -b &&
 npm run cti create './src/account/domain' -- -i '*spec.ts' -b && 
 npm run cti create './src/account/infra' -- -i '*spec.ts' -b && 
 
-
 npm run cti create './src/transaction/application' -- -i '*spec.ts' -b && 
 npm run cti create './src/transaction/domain' -- -i '*spec.ts' -b && 
 npm run cti create './src/transaction/infra' -- -i '*spec.ts' -b
-    
-
-npm run cti create './src/transaction/application' -- -i '*spec.ts' -b && 
-npm run cti create './src/transaction/domain' -- -i '*spec.ts' -b && 
-npm run cti create './src/transaction/infra' -- -i '*spec.ts' -b
-    
-
-npm run cti create './src/transaction/application' -- -i '*spec.ts' -b && 
-npm run cti create './src/transaction/domain' -- -i '*spec.ts' -b && 
-npm run cti create './src/transaction/infra' -- -i '*spec.ts' -b
-    

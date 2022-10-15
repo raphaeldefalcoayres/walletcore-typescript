@@ -174,14 +174,15 @@ module.exports = {
 
     let cti = await filesystem.readAsync('cti.sh')
 
-    cti += `
+    if (!JSON.stringify(cti).toLowerCase().includes(name.toLowerCase())) {
+      cti += `
 
 npm run cti create './src/${name.toLowerCase()}/application' -- -i '*spec.ts' -b && 
 npm run cti create './src/${name.toLowerCase()}/domain' -- -i '*spec.ts' -b && 
-npm run cti create './src/${name.toLowerCase()}/infra' -- -i '*spec.ts' -b
-    `
+npm run cti create './src/${name.toLowerCase()}/infra' -- -i '*spec.ts' -b`
 
-    await filesystem.writeAsync('cti.sh', cti)
+      await filesystem.writeAsync('cti.sh', cti)
+    }
 
     info(`Generated files of module`)
   },
