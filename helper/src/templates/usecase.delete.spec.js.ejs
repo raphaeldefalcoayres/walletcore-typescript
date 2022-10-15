@@ -1,6 +1,5 @@
 import <%= props.name %> from '#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>'
 import { <%= props.name %>InMemoryRepository } from '#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory'
-import Client from '#client/domain/entities/client'
 import { NotFoundError } from '#shared/errors'
 import Delete<%= props.name %>UseCase from '../../delete-<%= props.name.toLowerCase() %>.use-case'
 

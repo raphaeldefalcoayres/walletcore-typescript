@@ -7,7 +7,7 @@ import {
 import { TransactionRepository } from "#transaction/domain";
 import { TransactionOutput, TransactionOutputMapper } from "../dto";
 
-export namespace ListCategoriesUseCase {
+export namespace ListTransactionUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private transactionRepo: TransactionRepository.Repository) {}
     //
@@ -30,7 +30,7 @@ export namespace ListCategoriesUseCase {
   export type Output = PaginationOutputDto<TransactionOutput>;
 }
 
-export default ListCategoriesUseCase;
+export default ListTransactionUseCase;
 
 //request e response http
 //dados - Transaction - dados de saida

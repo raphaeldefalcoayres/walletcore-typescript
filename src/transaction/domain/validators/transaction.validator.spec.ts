@@ -1,3 +1,5 @@
-describe('TransactionValidator Tests', () => {
-  expect(true).toBe(true)
+describe('TransactionValidator Unit Tests', () => {
+  test('example', () => {
+    expect(true).toBe(true)
+  })
 })

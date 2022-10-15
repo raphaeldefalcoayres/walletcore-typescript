@@ -1,18 +1,10 @@
-import { <%= props.name %>FakeBuilder } from "#<%= props.name.toLowerCase() %>/domain";
-import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
-import { ClientFakeBuilder } from "#client/domain";
 import <%= props.name %>InMemoryRepository from "./<%= props.name.toLowerCase() %>-in-memory.repository";
 
 describe("<%= props.name %>InMemoryRepository", () => {
   let repository: <%= props.name %>InMemoryRepository;
 
   beforeEach(() => (repository = new <%= props.name %>InMemoryRepository()));
-  it("should no filter items when filter object is null", async () => {
-    const items = [<%= props.name %>FakeBuilder.a<%= props.name %>().build()];
-    const filterSpy = jest.spyOn(items, "filter" as any);
-
-    let itemsFiltered = await repository["applyFilter"](items, null);
-    expect(filterSpy).not.toHaveBeenCalled();
-    expect(itemsFiltered).toStrictEqual(items);
+  it("Example", async () => {
+    expect(true).toBe(true);
   });
 });

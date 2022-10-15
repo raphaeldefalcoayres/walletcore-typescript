@@ -1,6 +1,6 @@
 import { NotFoundError } from "#shared/errors";
 import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
-import Update<%= props.name %>UseCase from "../../update-<%= props.name.toLowerCase() %>s.use-case";
+import Update<%= props.name %>UseCase from "../../update-<%= props.name.toLowerCase() %>.use-case";
 import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
 
 describe("Update<%= props.name %>UseCase Unit Tests", () => {

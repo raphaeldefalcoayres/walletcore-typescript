@@ -47,7 +47,11 @@
     "#account/domain": "./dist/account/domain/index.js",
     "#account/infra": "./dist/account/infra/index.js",
     "#account/application": "./dist/account/application/index.js",
-    "#account/*": "./dist/account/*.js"
+    "#account/*": "./dist/account/*.js",
+    "#transaction/application": "./dist/transaction/application/index.js",
+    "#transaction/domain": "./dist/transaction/domain/index.js",
+    "#transaction/infra": "./dist/transaction/infra/index.js",
+    "#transaction/*": "./dist/transaction/*.js"
   },
   "exports": {
     "./shared/dto": "./dist/shared/dto/index.js",
@@ -63,7 +67,10 @@
     "./client/infra": "./dist/client/infra/index.js",
     "./account/application": "./dist/account/application/index.js",
     "./account/domain": "./dist/account/domain/index.js",
-    "./account/infra": "./dist/account/infra/index.js"
+    "./account/infra": "./dist/account/infra/index.js",
+    "./transaction/application": "./dist/transaction/application/index.js",
+    "./transaction/domain": "./dist/transaction/domain/index.js",
+    "./transaction/infra": "./dist/transaction/infra/index.js"
   },
   "typesVersions": {
     ">=4.0": {
@@ -108,6 +115,15 @@
       ],
       "account/infra": [
         "./dist/account/infra/index.d.ts"
+      ],
+      "transaction/application": [
+        "./dist/transaction/application/index.d.ts"
+      ],
+      "transaction/domain": [
+        "./dist/transaction/domain/index.d.ts"
+      ],
+      "transaction/infra": [
+        "./dist/transaction/infra/index.d.ts"
       ]
     }
   }

@@ -2,15 +2,15 @@ import { ClientRepository } from "#client/domain";
 
 import Client from "#client/domain/entities/client";
 import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
-import ListCategoriesUseCase from "../../list-clients.use-case";
+import ListClientsUseCase from "../../list-clients.use-case";
 
-describe("ListCategoriesUseCase Unit Tests", () => {
-  let useCase: ListCategoriesUseCase.UseCase;
+describe("ListClientsUseCase Unit Tests", () => {
+  let useCase: ListClientsUseCase.UseCase;
   let repository: ClientInMemoryRepository;
 
   beforeEach(() => {
     repository = new ClientInMemoryRepository();
-    useCase = new ListCategoriesUseCase.UseCase(repository);
+    useCase = new ListClientsUseCase.UseCase(repository);
   });
 
   test("toOutput method", () => {

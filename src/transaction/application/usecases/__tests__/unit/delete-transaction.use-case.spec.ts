@@ -1,6 +1,5 @@
 import Transaction from '#transaction/domain/entities/transaction'
 import { TransactionInMemoryRepository } from '#transaction/infra/repository/db/in-memory'
-import Client from '#client/domain/entities/client'
 import { NotFoundError } from '#shared/errors'
 import DeleteTransactionUseCase from '../../delete-transaction.use-case'
 

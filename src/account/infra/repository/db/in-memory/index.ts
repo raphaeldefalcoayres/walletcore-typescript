@@ -1,3 +1,3 @@
 // created from 'create-ts-index'
 
-export * from "./account-in-memory.repository";
+export * from './account-in-memory.repository';

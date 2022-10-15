@@ -2,16 +2,15 @@ import { TransactionRepository } from "#transaction/domain";
 
 import Transaction from "#transaction/domain/entities/transaction";
 import { TransactionInMemoryRepository } from "#transaction/infra/repository/db/in-memory";
-import Client from "#client/domain/entities/client";
-import ListCategoriesUseCase from "../../list-transactions.use-case";
+import ListTransactionUseCase from "../../list-transactions.use-case";
 
-describe("ListCategoriesUseCase Unit Tests", () => {
-  let useCase: ListCategoriesUseCase.UseCase;
+describe("ListTransactionUseCase Unit Tests", () => {
+  let useCase: ListTransactionUseCase.UseCase;
   let repository: TransactionInMemoryRepository;
 
   beforeEach(() => {
     repository = new TransactionInMemoryRepository();
-    useCase = new ListCategoriesUseCase.UseCase(repository);
+    useCase = new ListTransactionUseCase.UseCase(repository);
   });
 
   test("toOutput method", () => {

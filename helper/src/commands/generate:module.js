@@ -62,61 +62,61 @@ module.exports = {
 
     await generate({
       template: 'usecase.create.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/create-${name.toLowerCase()}-use-case.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/create-${name.toLowerCase()}.use-case.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.create.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/create-${name.toLowerCase()}-use-case.spec.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/create-${name.toLowerCase()}.use-case.spec.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.update.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/update-${name.toLowerCase()}-use-case.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/update-${name.toLowerCase()}.use-case.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.update.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/update-${name.toLowerCase()}-use-case.spec.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/update-${name.toLowerCase()}.use-case.spec.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.delete.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/delete-${name.toLowerCase()}-use-case.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/delete-${name.toLowerCase()}.use-case.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.delete.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/delete-${name.toLowerCase()}-use-case.spec.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/delete-${name.toLowerCase()}.use-case.spec.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.get.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/get-${name.toLowerCase()}-use-case.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/get-${name.toLowerCase()}.use-case.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.get.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/get-${name.toLowerCase()}-use-case.spec.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/get-${name.toLowerCase()}.use-case.spec.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.list.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/list-${name.toLowerCase()}s-use-case.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/list-${name.toLowerCase()}s.use-case.ts`,
       props: { name },
     })
 
     await generate({
       template: 'usecase.list.spec.js.ejs',
-      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/list-${name.toLowerCase()}s-use-case.spec.ts`,
+      target: `src/${name.toLowerCase()}/application/usecases/__tests__/unit/list-${name.toLowerCase()}s.use-case.spec.ts`,
       props: { name },
     })
 
@@ -152,7 +152,36 @@ module.exports = {
       },
     }
 
-    await filesystem.writeAsync('package2.json', packageJSON)
+    await filesystem.writeAsync('package.json', packageJSON)
+
+    const swcrc = await filesystem.readAsync('.swcrc', 'json')
+
+    swcrc.jsc.paths = {
+      ...swcrc.jsc.paths,
+      [`#${name.toLowerCase()}/*`]: [`./${name.toLowerCase()}/*`],
+    }
+
+    await filesystem.writeAsync('.swcrc', swcrc)
+
+    const tsconfig = await filesystem.readAsync('tsconfig.json', 'json')
+
+    tsconfig.compilerOptions.paths = {
+      ...tsconfig.compilerOptions.paths,
+      [`#${name.toLowerCase()}/*`]: [`./${name.toLowerCase()}/*`],
+    }
+
+    await filesystem.writeAsync('tsconfig.json', tsconfig)
+
+    let cti = await filesystem.readAsync('cti.sh')
+
+    cti += `
+
+npm run cti create './src/${name.toLowerCase()}/application' -- -i '*spec.ts' -b && 
+npm run cti create './src/${name.toLowerCase()}/domain' -- -i '*spec.ts' -b && 
+npm run cti create './src/${name.toLowerCase()}/infra' -- -i '*spec.ts' -b
+    `
+
+    await filesystem.writeAsync('cti.sh', cti)
 
     info(`Generated files of module`)
   },

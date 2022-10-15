@@ -3,15 +3,15 @@ import { AccountRepository } from "#account/domain";
 import Account from "#account/domain/entities/account";
 import { AccountInMemoryRepository } from "#account/infra/repository/db/in-memory";
 import Client from "#client/domain/entities/client";
-import ListCategoriesUseCase from "../../list-accounts.use-case";
+import ListAccountsUseCase from "../../list-accounts.use-case";
 
-describe("ListCategoriesUseCase Unit Tests", () => {
-  let useCase: ListCategoriesUseCase.UseCase;
+describe("ListAccountsUseCase Unit Tests", () => {
+  let useCase: ListAccountsUseCase.UseCase;
   let repository: AccountInMemoryRepository;
 
   beforeEach(() => {
     repository = new AccountInMemoryRepository();
-    useCase = new ListCategoriesUseCase.UseCase(repository);
+    useCase = new ListAccountsUseCase.UseCase(repository);
   });
 
   test("toOutput method", () => {

@@ -2,16 +2,15 @@ import { <%= props.name %>Repository } from "#<%= props.name.toLowerCase() %>/do
 
 import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
 import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
-import Client from "#client/domain/entities/client";
-import ListCategoriesUseCase from "../../list-<%= props.name.toLowerCase() %>s.use-case";
+import List<%= props.name %>UseCase from "../../list-<%= props.name.toLowerCase() %>s.use-case";
 
-describe("ListCategoriesUseCase Unit Tests", () => {
-  let useCase: ListCategoriesUseCase.UseCase;
+describe("List<%= props.name %>UseCase Unit Tests", () => {
+  let useCase: List<%= props.name %>UseCase.UseCase;
   let repository: <%= props.name %>InMemoryRepository;
 
   beforeEach(() => {
     repository = new <%= props.name %>InMemoryRepository();
-    useCase = new ListCategoriesUseCase.UseCase(repository);
+    useCase = new List<%= props.name %>UseCase.UseCase(repository);
   });
 
   test("toOutput method", () => {

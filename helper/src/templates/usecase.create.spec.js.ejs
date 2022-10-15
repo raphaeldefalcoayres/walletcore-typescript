@@ -1,5 +1,5 @@
 import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
-import Create<%= props.name %>UseCase from "../../create-<%= props.name.toLowerCase() %>.usecase";
+import Create<%= props.name %>UseCase from "../../create-<%= props.name.toLowerCase() %>.use-case";
 
 describe("Create<%= props.name %>UseCase Unit Tests", () => {
   let useCase: Create<%= props.name %>UseCase.UseCase;
@@ -12,7 +12,7 @@ describe("Create<%= props.name %>UseCase Unit Tests", () => {
 
   it("should create a <%= props.name.toLowerCase() %>", async () => {
     const spyInsert = jest.spyOn(repository, "insert");
-    let output = await useCase.execute({ client: client, balance: 1 });
+    let output = await useCase.execute({});
     expect(spyInsert).toHaveBeenCalledTimes(1);
     expect(output).toStrictEqual({
       id: repository.items[0].id,

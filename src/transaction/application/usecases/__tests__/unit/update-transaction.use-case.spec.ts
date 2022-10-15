@@ -1,6 +1,6 @@
 import { NotFoundError } from "#shared/errors";
 import Transaction from "#transaction/domain/entities/transaction";
-import UpdateTransactionUseCase from "../../update-transactions.use-case";
+import UpdateTransactionUseCase from "../../update-transaction.use-case";
 import { TransactionInMemoryRepository } from "#transaction/infra/repository/db/in-memory";
 
 describe("UpdateTransactionUseCase Unit Tests", () => {

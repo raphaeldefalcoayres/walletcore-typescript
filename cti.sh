@@ -10,4 +10,24 @@ npm run cti create './src/shared/usecases' -- -i '*spec.ts' -b &&
 
 npm run cti create './src/client/application' -- -i '*spec.ts' -b && 
 npm run cti create './src/client/domain' -- -i '*spec.ts' -b && 
-npm run cti create './src/client/infra' -- -i '*spec.ts' -b
+npm run cti create './src/client/infra' -- -i '*spec.ts' -b && 
+
+npm run cti create './src/account/application' -- -i '*spec.ts' -b && 
+npm run cti create './src/account/domain' -- -i '*spec.ts' -b && 
+npm run cti create './src/account/infra' -- -i '*spec.ts' -b && 
+
+
+npm run cti create './src/transaction/application' -- -i '*spec.ts' -b && 
+npm run cti create './src/transaction/domain' -- -i '*spec.ts' -b && 
+npm run cti create './src/transaction/infra' -- -i '*spec.ts' -b
+    
+
+npm run cti create './src/transaction/application' -- -i '*spec.ts' -b && 
+npm run cti create './src/transaction/domain' -- -i '*spec.ts' -b && 
+npm run cti create './src/transaction/infra' -- -i '*spec.ts' -b
+    
+
+npm run cti create './src/transaction/application' -- -i '*spec.ts' -b && 
+npm run cti create './src/transaction/domain' -- -i '*spec.ts' -b && 
+npm run cti create './src/transaction/infra' -- -i '*spec.ts' -b
+    

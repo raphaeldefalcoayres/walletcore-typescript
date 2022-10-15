@@ -1,6 +1,6 @@
 import { AccountInMemoryRepository } from "#account/infra/repository/db/in-memory";
 import Client from "#client/domain/entities/client";
-import CreateAccountUseCase from "../../create-account.usecase";
+import CreateAccountUseCase from "../../create-account.use-case";
 
 describe("CreateAccountUseCase Unit Tests", () => {
   let useCase: CreateAccountUseCase.UseCase;

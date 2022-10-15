@@ -2,7 +2,6 @@ import { NotFoundError } from "#shared/errors";
 import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/<%= props.name.toLowerCase() %>";
 import Get<%= props.name %>UseCase from "../../get-<%= props.name.toLowerCase() %>.use-case";
 import { <%= props.name %>InMemoryRepository } from "#<%= props.name.toLowerCase() %>/infra/repository/db/in-memory";
-import Client from "#client/domain/entities/client";
 
 describe("Get<%= props.name %>UseCase Unit Tests", () => {
   let useCase: Get<%= props.name %>UseCase.UseCase;

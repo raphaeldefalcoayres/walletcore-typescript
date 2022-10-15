@@ -2,7 +2,6 @@ import { NotFoundError } from "#shared/errors";
 import Transaction from "#transaction/domain/entities/transaction";
 import GetTransactionUseCase from "../../get-transaction.use-case";
 import { TransactionInMemoryRepository } from "#transaction/infra/repository/db/in-memory";
-import Client from "#client/domain/entities/client";
 
 describe("GetTransactionUseCase Unit Tests", () => {
   let useCase: GetTransactionUseCase.UseCase;

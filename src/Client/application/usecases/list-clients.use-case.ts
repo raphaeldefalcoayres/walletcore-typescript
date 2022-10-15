@@ -7,7 +7,7 @@ import {
 import { ClientRepository } from "#client/domain";
 import { ClientOutput, ClientOutputMapper } from "../dto";
 
-export namespace ListCategoriesUseCase {
+export namespace ListClientsUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private clientRepo: ClientRepository.Repository) {}
     //
@@ -30,7 +30,7 @@ export namespace ListCategoriesUseCase {
   export type Output = PaginationOutputDto<ClientOutput>;
 }
 
-export default ListCategoriesUseCase;
+export default ListClientsUseCase;
 
 //request e response http
 //dados - Client - dados de saida

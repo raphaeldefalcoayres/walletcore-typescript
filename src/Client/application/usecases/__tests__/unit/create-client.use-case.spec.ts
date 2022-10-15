@@ -1,5 +1,5 @@
 import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
-import CreateClientUseCase from "../../create-client.usecase";
+import CreateClientUseCase from "../../create-client.use-case";
 
 describe("CreateClientUseCase Unit Tests", () => {
   let useCase: CreateClientUseCase.UseCase;

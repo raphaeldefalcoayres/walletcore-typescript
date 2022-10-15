@@ -1,5 +1,5 @@
 import { TransactionInMemoryRepository } from "#transaction/infra/repository/db/in-memory";
-import CreateTransactionUseCase from "../../create-transaction.usecase";
+import CreateTransactionUseCase from "../../create-transaction.use-case";
 
 describe("CreateTransactionUseCase Unit Tests", () => {
   let useCase: CreateTransactionUseCase.UseCase;
@@ -12,7 +12,7 @@ describe("CreateTransactionUseCase Unit Tests", () => {
 
   it("should create a transaction", async () => {
     const spyInsert = jest.spyOn(repository, "insert");
-    let output = await useCase.execute({ client: client, balance: 1 });
+    let output = await useCase.execute({});
     expect(spyInsert).toHaveBeenCalledTimes(1);
     expect(output).toStrictEqual({
       id: repository.items[0].id,

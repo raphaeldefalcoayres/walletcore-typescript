@@ -6,9 +6,18 @@
     },
     "baseUrl": "./src",
     "paths": {
-      "#shared/*": ["./shared/*"],
-      "#client/*": ["./client/*"],
-      "#account/*": ["./account/*"]
+      "#shared/*": [
+        "./shared/*"
+      ],
+      "#client/*": [
+        "./client/*"
+      ],
+      "#account/*": [
+        "./account/*"
+      ],
+      "#transaction/*": [
+        "./transaction/*"
+      ]
     }
   }
 }
