@@ -1,10 +1,11 @@
+import Transaction from "./transaction";
 import { validate } from "uuid";
-import Transaction, { TransactionProperties } from "./transaction";
-
-type Arrange = { props: TransactionProperties; id?: string };
 
 describe("Transaction Unit Tests", () => {
-  test("getter of id field", () => {
-    expect(true).toBe(true)
+  test("constructor of transaction", () => {
+    const transaction = new Transaction({});
+
+    expect(transaction.props).not.toBeNull();
+    expect(validate(transaction.id)).toBeTruthy();
   });
 });

@@ -26,8 +26,8 @@ describe("Get<%= props.name %>UseCase Unit Tests", () => {
     expect(spyFindById).toHaveBeenCalledTimes(1);
     expect(output).toStrictEqual({
       id: items[0].id,
-      created_at: items[0].created_at,
-      updated_at: items[0].updated_at,
+      created_at: items[0].created_at,<% if(!props.options.withoutUpdate){ %>
+      updated_at: items[0].updated_at,<%}%>
     });
   });
 });

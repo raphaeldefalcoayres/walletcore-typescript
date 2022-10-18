@@ -6,14 +6,19 @@ export class <%= props.name %>Rules {
   @IsDate()
   @IsOptional()
   created_at: Date;
-
+  <% if(!props.options.withoutUpdate){ %>
   @IsDate()
   @IsOptional()
   updated_at: Date;
-
+  <% } if(!props.options.withoutUpdate){ %>
   constructor({ created_at, updated_at }: <%= props.name %>Properties) {
     Object.assign(this, { created_at, updated_at });
   }
+  <% } else { %>
+  constructor({ created_at }: <%= props.name %>Properties) {
+    Object.assign(this, { created_at });
+  }
+  <% } %>
 }
 
 export class <%= props.name %>Validator extends ClassValidatorFields<<%= props.name %>Rules> {

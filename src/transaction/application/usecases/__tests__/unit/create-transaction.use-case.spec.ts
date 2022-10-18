@@ -17,7 +17,6 @@ describe("CreateTransactionUseCase Unit Tests", () => {
     expect(output).toStrictEqual({
       id: repository.items[0].id,
       created_at: repository.items[0].created_at,
-      updated_at: repository.items[0].updated_at,
     });
 
     output = await useCase.execute({});
@@ -25,7 +24,6 @@ describe("CreateTransactionUseCase Unit Tests", () => {
     expect(output).toStrictEqual({
       id: repository.items[1].id,
       created_at: repository.items[1].created_at,
-      updated_at: repository.items[1].updated_at,
     });
   });
 });

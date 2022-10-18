@@ -1,18 +1,29 @@
-import { IsDate, IsOptional } from "class-validator";
+import { IsDate, IsNumber, IsOptional, IsUUID } from "class-validator";
 import { TransactionProperties } from "../entities/transaction";
 import ClassValidatorFields from "#shared/validators/class-validator-fields";
+import Account from "#account/domain/entities/account";
 
 export class TransactionRules {
   @IsDate()
   @IsOptional()
   created_at: Date;
 
-  @IsDate()
-  @IsOptional()
-  updated_at: Date;
+  @IsUUID("4")
+  accountFrom: Account;
 
-  constructor({ created_at, updated_at }: TransactionProperties) {
-    Object.assign(this, { created_at, updated_at });
+  @IsUUID("4")
+  accountTo: Account;
+
+  @IsNumber()
+  amount: number;
+
+  constructor({
+    created_at,
+    accountFrom,
+    accountTo,
+    amount,
+  }: TransactionProperties) {
+    Object.assign(this, { created_at, accountFrom, accountTo, amount });
   }
 }
 

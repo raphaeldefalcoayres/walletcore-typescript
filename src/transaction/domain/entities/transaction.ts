@@ -1,11 +1,14 @@
 import TransactionValidatorFactory from "../validators/transaction.validator";
 import { EntityValidationError } from "#shared/errors";
 import Entity from "#shared/entities/entity";
+import Account from "#account/domain/entities/account";
 
 export type TransactionProperties = {
   id?: string;
+  accountFrom: Account;
+  accountTo: Account;
+  amount: number;
   created_at?: Date;
-  updated_at?: Date;
 };
 
 export default class Transaction extends Entity<TransactionProperties> {
@@ -13,21 +16,22 @@ export default class Transaction extends Entity<TransactionProperties> {
     super(props, id);
     Transaction.validate(props);
     this.props.created_at = this.created_at ?? new Date();
-    this.props.updated_at = this.updated_at ?? new Date();
   }
-
-  update(): void {}
 
   get created_at() {
     return this.props.created_at;
   }
 
-  get updated_at() {
-    return this.props.updated_at;
+  get accountFrom() {
+    return this.props.accountFrom;
   }
 
-  private set updated_at(value) {
-    this.props.updated_at = value;
+  get accountTo() {
+    return this.props.accountTo;
+  }
+
+  get amount() {
+    return this.props.amount;
   }
 
   static validate(props: TransactionProperties) {

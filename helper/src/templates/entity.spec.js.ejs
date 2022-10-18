@@ -1,10 +1,11 @@
+import <%= props.name %> from "./<%= props.name.toLowerCase() %>";
 import { validate } from "uuid";
-import <%= props.name %>, { <%= props.name %>Properties } from "./<%= props.name.toLowerCase() %>";
-
-type Arrange = { props: <%= props.name %>Properties; id?: string };
 
 describe("<%= props.name %> Unit Tests", () => {
-  test("getter of id field", () => {
-    expect(true).toBe(true)
+  test("constructor of <%= props.name.toLowerCase() %>", () => {
+    const <%= props.name.toLowerCase() %> = new <%= props.name %>({});
+
+    expect(<%= props.name.toLowerCase() %>.props).not.toBeNull();
+    expect(validate(<%= props.name.toLowerCase() %>.id)).toBeTruthy();
   });
 });

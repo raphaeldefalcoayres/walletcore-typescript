@@ -4,23 +4,23 @@ import Entity from "#shared/entities/entity";
 
 export type <%= props.name %>Properties = {
   id?: string;
-  created_at?: Date;
-  updated_at?: Date;
+  created_at?: Date;<% if(!props.options.withoutUpdate){ %>
+  updated_at?: Date;<% } %>
 };
 
 export default class <%= props.name %> extends Entity<<%= props.name %>Properties> {
   constructor(public readonly props: <%= props.name %>Properties, id?: string) {
     super(props, id);
     <%= props.name %>.validate(props);
-    this.props.created_at = this.created_at ?? new Date();
-    this.props.updated_at = this.updated_at ?? new Date();
+    this.props.created_at = this.created_at ?? new Date();<% if(!props.options.withoutUpdate){ %>
+    this.props.updated_at = this.updated_at ?? new Date();<% } %>
   }
-
+  <% if(!props.options.withoutUpdate){ %>
   update(): void {}
-
+  <% } %>
   get created_at() {
     return this.props.created_at;
-  }
+  }<% if(!props.options.withoutUpdate){ %>
 
   get updated_at() {
     return this.props.updated_at;
@@ -28,7 +28,7 @@ export default class <%= props.name %> extends Entity<<%= props.name %>Propertie
 
   private set updated_at(value) {
     this.props.updated_at = value;
-  }
+  }<% } %>
 
   static validate(props: <%= props.name %>Properties) {
     const validator = <%= props.name %>ValidatorFactory.create();

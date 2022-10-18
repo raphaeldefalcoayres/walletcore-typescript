@@ -2,9 +2,8 @@ import <%= props.name %> from "#<%= props.name.toLowerCase() %>/domain/entities/
 
 export type <%= props.name %>Output = {
   id: string;
-  <%= props.name.toLowerCase() %>s?: <%= props.name %>[];
-  created_at: Date;
-  updated_at: Date;
+  created_at: Date;<% if(!props.options.withoutUpdate){ %>
+  updated_at: Date;<%}%>
 };
 
 export class <%= props.name %>OutputMapper {

@@ -27,7 +27,6 @@ describe("GetTransactionUseCase Unit Tests", () => {
     expect(output).toStrictEqual({
       id: items[0].id,
       created_at: items[0].created_at,
-      updated_at: items[0].updated_at,
     });
   });
 });
