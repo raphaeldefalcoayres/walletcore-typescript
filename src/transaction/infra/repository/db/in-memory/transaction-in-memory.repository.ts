@@ -20,7 +20,7 @@ export class TransactionInMemoryRepository
     }
 
     return items.filter((i) => {
-      return i.props.id === filter;
+      return i.id === filter;
     });
   }
 
