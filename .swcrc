@@ -6,21 +6,11 @@
     },
     "baseUrl": "./src",
     "paths": {
-      "#shared/*": [
-        "./shared/*"
-      ],
-      "#client/*": [
-        "./client/*"
-      ],
-      "#account/*": [
-        "./account/*"
-      ],
-      "#transaction/*": [
-        "./transaction/*"
-      ],
-      "#transactiontest/*": [
-        "./transactiontest/*"
-      ]
+      "#shared/*": ["./@shared/*"],
+      "#client/*": ["./client/*"],
+      "#account/*": ["./account/*"],
+      "#transaction/*": ["./transaction/*"],
+      "#transactiontest/*": ["./transactiontest/*"]
     }
   }
 }

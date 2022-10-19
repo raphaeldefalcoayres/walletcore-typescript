@@ -6,7 +6,6 @@ import Account from "#account/domain/entities/account";
 describe("Transaction Unit Tests", () => {
   test("constructor of transaction", () => {
     const fakeClient1 = {
-      id: "1",
       name: "client1",
       email: "client1@email.com",
     };
@@ -14,7 +13,6 @@ describe("Transaction Unit Tests", () => {
     const client1 = new Client(fakeClient1);
 
     const fakeAccount1 = {
-      id: "1",
       client: client1,
       balance: 1,
     };
@@ -22,7 +20,6 @@ describe("Transaction Unit Tests", () => {
     const account1 = new Account(fakeAccount1);
 
     const fakeClient2 = {
-      id: "2",
       name: "client2",
       email: "client2@email.com",
     };
@@ -30,7 +27,6 @@ describe("Transaction Unit Tests", () => {
     const client2 = new Client(fakeClient2);
 
     const fakeAccount2 = {
-      id: "2",
       client: client2,
       balance: 2,
     };

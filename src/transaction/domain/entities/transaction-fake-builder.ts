@@ -14,7 +14,7 @@ export class TransactionFakeBuilder<TBuild = any> {
   private _accountTo: PropOrFactory<Account> = (_index) =>
     AccountFakeBuilder.aAccount().build();
   private _amount: PropOrFactory<Number> = (_index) =>
-    this.chance.floating({ fixed: 2, min: 1, max: 10000 });
+    this.chance.floating({ fixed: 2, min: 1, max: 100 });
 
   // auto generated in entity
   private _created_at: any = undefined;

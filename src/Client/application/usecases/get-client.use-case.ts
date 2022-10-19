@@ -1,5 +1,6 @@
 import { ClientRepository } from "#client/domain";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
+import { UniqueEntityId } from "#shared/value-objects";
 import { ClientOutput, ClientOutputMapper } from "../dto";
 
 export namespace GetClientUseCase {
@@ -13,7 +14,7 @@ export namespace GetClientUseCase {
   }
 
   export type Input = {
-    id: string;
+    id: UniqueEntityId;
   };
 
   export type Output = ClientOutput;

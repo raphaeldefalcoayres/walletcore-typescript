@@ -40,7 +40,7 @@
     "uuid": "^9.0.0"
   },
   "imports": {
-    "#shared/*": "./dist/shared/*.js",
+    "#shared/*": "./dist/@shared/*.js",
     "#client/domain": "./dist/client/domain/index.js",
     "#client/infra": "./dist/client/infra/index.js",
     "#client/application": "./dist/client/application/index.js",
@@ -59,14 +59,14 @@
     "#transactiontest/*": "./dist/transactiontest/*.js"
   },
   "exports": {
-    "./shared/dto": "./dist/shared/dto/index.js",
-    "./shared/entities": "./dist/shared/entities/index.js",
-    "./shared/errors": "./dist/shared/errors/index.js",
-    "./shared/repository": "./dist/shared/repository/index.js",
-    "./shared/tests": "./dist/shared/tests/index.js",
-    "./shared/usecases": "./dist/shared/usecases/index.js",
-    "./shared/utils": "./dist/shared/utils/index.js",
-    "./shared/validators": "./dist/shared/validators/index.js",
+    "./@shared/dto": "./dist/@shared/dto/index.js",
+    "./@shared/entities": "./dist/@shared/entities/index.js",
+    "./@shared/errors": "./dist/@shared/errors/index.js",
+    "./@shared/repository": "./dist/@shared/repository/index.js",
+    "./@shared/tests": "./dist/@shared/tests/index.js",
+    "./@shared/usecases": "./dist/@shared/usecases/index.js",
+    "./@shared/utils": "./dist/@shared/utils/index.js",
+    "./@shared/validators": "./dist/@shared/validators/index.js",
     "./client/application": "./dist/client/application/index.js",
     "./client/domain": "./dist/client/domain/index.js",
     "./client/infra": "./dist/client/infra/index.js",
@@ -83,28 +83,28 @@
   "typesVersions": {
     ">=4.0": {
       "shared/dto": [
-        "./dist/shared/application/index.d.ts"
+        "./dist/@shared/application/index.d.ts"
       ],
       "shared/entities": [
-        "./dist/shared/entities/index.d.ts"
+        "./dist/@shared/entities/index.d.ts"
       ],
       "shared/errors": [
-        "./dist/shared/errors/index.d.ts"
+        "./dist/@shared/errors/index.d.ts"
       ],
       "shared/repository": [
-        "./dist/shared/repository/index.d.ts"
+        "./dist/@shared/repository/index.d.ts"
       ],
       "shared/tests": [
-        "./dist/shared/tests/index.d.ts"
+        "./dist/@shared/tests/index.d.ts"
       ],
       "shared/usecases": [
-        "./dist/shared/usecases/index.d.ts"
+        "./dist/@shared/usecases/index.d.ts"
       ],
       "shared/utils": [
-        "./dist/shared/utils/index.d.ts"
+        "./dist/@shared/utils/index.d.ts"
       ],
       "shared/validators": [
-        "./dist/shared/validators/index.d.ts"
+        "./dist/@shared/validators/index.d.ts"
       ],
       "client/application": [
         "./dist/client/application/index.d.ts"

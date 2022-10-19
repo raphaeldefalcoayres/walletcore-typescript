@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, Min } from "class-validator";
 import { AccountProperties } from "../entities/account";
 import ClassValidatorFields from "#shared/validators/class-validator-fields";
 import Client from "#client/domain/entities/client";
@@ -9,6 +9,7 @@ export class AccountRules {
 
   @IsNumber()
   @IsNotEmpty()
+  @Min(0)
   balance: number;
 
   @IsDate()

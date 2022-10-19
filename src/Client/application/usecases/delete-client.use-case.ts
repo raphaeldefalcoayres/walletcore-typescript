@@ -1,5 +1,6 @@
 import { ClientRepository } from "#client/domain";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
+import { UniqueEntityId } from "#shared/value-objects";
 
 export namespace DeleteClientUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -11,7 +12,7 @@ export namespace DeleteClientUseCase {
   }
 
   export type Input = {
-    id: string;
+    id: UniqueEntityId;
   };
 
   type Output = void;

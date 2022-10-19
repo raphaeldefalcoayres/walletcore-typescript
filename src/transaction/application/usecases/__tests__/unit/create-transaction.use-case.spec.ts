@@ -13,7 +13,7 @@ describe("CreateTransactionUseCase Unit Tests", () => {
 
   it("should create a transaction", async () => {
     const spyInsert = jest.spyOn(repository, "insert");
-    const fake = TransactionFakeBuilder.aTransaction().build();
+    const fake = TransactionFakeBuilder.aTransaction().withAmount(100).build();
     const output = await useCase.execute(fake);
 
     expect(spyInsert).toHaveBeenCalledTimes(1);
@@ -30,5 +30,13 @@ describe("CreateTransactionUseCase Unit Tests", () => {
       amount: repository.items[0].amount,
       created_at: repository.items[0].created_at,
     });
+  });
+
+  it("should return error a invalid data", async () => {
+    const fake = TransactionFakeBuilder.aTransaction()
+      .withAmount(100000)
+      .build();
+
+    expect(useCase.execute(fake)).rejects.toThrow();
   });
 });

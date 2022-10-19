@@ -3,6 +3,7 @@ import Transaction from "#transaction/domain/entities/transaction";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
 import { TransactionOutput, TransactionOutputMapper } from "../dto";
 import Account from "#account/domain/entities/account";
+import { UniqueEntityId } from "#shared/value-objects";
 
 export namespace CreateTransactionUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {

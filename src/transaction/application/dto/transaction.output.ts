@@ -6,7 +6,7 @@ export type TransactionOutput = {
   props?: {
     accountFrom: Account;
     accountTo: Account;
-    amount: Number;
+    amount: number;
     created_at: Date;
   };
 };

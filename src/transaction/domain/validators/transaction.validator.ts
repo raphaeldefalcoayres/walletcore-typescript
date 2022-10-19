@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsObject,
   IsOptional,
+  Min,
 } from "class-validator";
 import { TransactionProperties } from "../entities/transaction";
 import ClassValidatorFields from "#shared/validators/class-validator-fields";
@@ -24,6 +25,7 @@ export class TransactionRules {
 
   @IsNotEmpty()
   @IsNumber()
+  @Min(0)
   amount: number;
 
   constructor({

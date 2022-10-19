@@ -2,6 +2,7 @@ import { NotFoundError } from "#shared/errors";
 import Client from "#client/domain/entities/client";
 import UpdateClientUseCase from "../../update-clients.use-case";
 import { ClientInMemoryRepository } from "#client/infra/repository/db/in-memory";
+import { UniqueEntityId } from "#shared/value-objects";
 
 describe("UpdateClientUseCase Unit Tests", () => {
   let useCase: UpdateClientUseCase.UseCase;
@@ -39,12 +40,12 @@ describe("UpdateClientUseCase Unit Tests", () => {
 
     type Arrange = {
       input: {
-        id: string;
+        id: UniqueEntityId;
         name: string;
         email: string;
       };
       expected: {
-        id: string;
+        id: UniqueEntityId;
         name: string;
         email: string;
         created_at: Date;

@@ -4,15 +4,25 @@ import Entity from "#shared/entities/entity";
 import Client from "#client/domain/entities/client";
 import { UniqueEntityId } from "#shared/value-objects";
 
-export type AccountProperties = {
+export type AccountPropertiesCreate = {
   client: Client;
   balance: number;
   created_at?: Date;
   updated_at?: Date;
 };
 
-export default class Account extends Entity<AccountProperties> {
-  constructor(public readonly props: AccountProperties, id?: UniqueEntityId) {
+export type AccountPropertiesUpdate = {
+  client?: Client;
+  balance?: number;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
+export default class Account extends Entity<AccountPropertiesCreate> {
+  constructor(
+    public readonly props: AccountPropertiesCreate,
+    id?: UniqueEntityId
+  ) {
     super(props, id);
     Account.validate(props);
     this.props.created_at = this.created_at ?? new Date();
@@ -34,6 +44,10 @@ export default class Account extends Entity<AccountProperties> {
   }
 
   debit(amount: number) {
+    Account.validate({
+      client: this.client,
+      balance: this.balance,
+    });
     this.balance -= amount;
     this.updated_at = new Date();
   }
@@ -66,9 +80,10 @@ export default class Account extends Entity<AccountProperties> {
     this.props.updated_at = value;
   }
 
-  static validate(props: AccountProperties) {
+  static validate(props: AccountPropertiesUpdate) {
     const validator = AccountValidatorFactory.create();
     const isValid = validator.validate(props);
+
     if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }

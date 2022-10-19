@@ -117,7 +117,6 @@ describe("TransactionFakerBuilder Unit Tests", () => {
     );
     let transaction = faker.build();
 
-    // expect(typeof transaction.client === "string").toBeTruthy();
     expect(typeof transaction.amount === "number").toBeTruthy();
     expect(transaction.created_at).toBeInstanceOf(Date);
 
@@ -125,7 +124,6 @@ describe("TransactionFakerBuilder Unit Tests", () => {
 
     transaction = faker
       .withUniqueEntityId(uniqueEntityId)
-      // .withClient("client test")
       .withAmount(5)
       .withCreatedAt(created_at)
       .build();

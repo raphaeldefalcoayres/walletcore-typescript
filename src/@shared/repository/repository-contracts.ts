@@ -1,11 +1,12 @@
 import Entity from "#shared/entities/entity";
+import { UniqueEntityId } from "#shared/value-objects";
 export interface RepositoryInterface<E extends Entity> {
   insert(entity: E): Promise<void>;
   bulkInsert(entities: E[]): Promise<void>;
-  findById(id: string): Promise<E>;
+  findById(id: UniqueEntityId): Promise<E>;
   findAll(): Promise<E[]>;
   update(entity: E): Promise<void>;
-  delete(id: string): Promise<void>;
+  delete(id: UniqueEntityId): Promise<void>;
 }
 
 export type SortDirection = "asc" | "desc";

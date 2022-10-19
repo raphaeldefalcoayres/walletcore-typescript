@@ -1,6 +1,7 @@
 import { AccountRepository } from "#account/domain";
 import Client from "#client/domain/entities/client";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
+import { UniqueEntityId } from "#shared/value-objects";
 import { AccountOutput, AccountOutputMapper } from "../dto";
 
 export namespace UpdateAccountUseCase {
@@ -18,7 +19,7 @@ export namespace UpdateAccountUseCase {
   }
 
   export type Input = {
-    id: string;
+    id: UniqueEntityId;
     client: Client;
     balance: number;
   };

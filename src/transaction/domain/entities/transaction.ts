@@ -19,6 +19,7 @@ export default class Transaction extends Entity<TransactionProperties> {
   ) {
     super(props, id);
     Transaction.validate(props);
+    Transaction.commit(props);
     this.props.created_at = this.created_at ?? new Date();
   }
 
@@ -42,9 +43,15 @@ export default class Transaction extends Entity<TransactionProperties> {
     this.props.created_at = value;
   }
 
+  static commit(props: TransactionProperties) {
+    props.accountFrom.debit(props.amount);
+    props.accountTo.credit(props.amount);
+  }
+
   static validate(props: TransactionProperties) {
     const validator = TransactionValidatorFactory.create();
     const isValid = validator.validate(props);
+
     if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }

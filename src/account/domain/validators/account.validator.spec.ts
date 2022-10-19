@@ -36,6 +36,7 @@ describe("AccountValidator Tests", () => {
       data: { client: client, balance: "" },
     }).containsErrorMessages({
       balance: [
+        "balance must not be less than 0",
         "balance should not be empty",
         "balance must be a number conforming to the specified constraints",
       ],
@@ -45,8 +46,15 @@ describe("AccountValidator Tests", () => {
       data: { client: client, balance: "5" },
     }).containsErrorMessages({
       balance: [
+        "balance must not be less than 0",
         "balance must be a number conforming to the specified constraints",
       ],
+    });
+    expect({
+      validator,
+      data: { client: client, balance: -1 },
+    }).containsErrorMessages({
+      balance: ["balance must not be less than 0"],
     });
   });
 
@@ -59,7 +67,7 @@ describe("AccountValidator Tests", () => {
     const arrange: Arrange[] = [
       {
         client: client,
-        balance: 1,
+        balance: 0,
       },
     ];
 

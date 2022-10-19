@@ -1,5 +1,6 @@
 import Entity from "#shared/entities/entity";
 import { NotFoundError } from "#shared/errors";
+import { UniqueEntityId } from "#shared/value-objects";
 
 import {
   RepositoryInterface,
@@ -22,7 +23,7 @@ export abstract class InMemoryRepository<E extends Entity>
     this.items.push(...entities);
   }
 
-  async findById(id: string): Promise<E> {
+  async findById(id: UniqueEntityId): Promise<E> {
     const _id = `${id}`;
     return this._get(_id);
   }
@@ -37,7 +38,7 @@ export abstract class InMemoryRepository<E extends Entity>
     this.items[indexFound] = entity;
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: UniqueEntityId): Promise<void> {
     const _id = `${id}`;
     await this._get(_id);
     const indexFound = this.items.findIndex((i) => i.id === _id);
