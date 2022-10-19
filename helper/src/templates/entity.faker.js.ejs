@@ -1,0 +1,44 @@
+import { Chance } from "chance"; import <%= props.name %> from "./<%=
+props.name.toLowerCase() %>"; type PropOrFactory<T>
+  = T | ((index: number) => T); export class <%= props.name %>FakeBuilder<TBuild
+    ="any"
+  >
+    { // auto generated in entity private _id: any = undefined; // auto
+    generated in entity private _created_at: any = undefined;<%
+    if(!props.options.withoutUpdate){ %> private _updated_at: any = undefined;<%
+    } %> private countObjs; static a<%= props.name %>() { return new <%=
+    props.name %>FakeBuilder<<%= props.name %>>(); } static the<%= props.name
+    %>s(countObjs: number) { return new <%= props.name %>FakeBuilder<<%=
+    props.name %>[]>(countObjs); } private chance: Chance.Chance; private
+    constructor(countObjs: number = 1) { this.countObjs = countObjs; this.chance
+    = Chance(); } withUniqueEntityId(valueOrFactory: PropOrFactory<any
+      >) { this._id = valueOrFactory; return this; }
+      withCreatedAt(valueOrFactory: PropOrFactory<Date
+        >) { this._created_at = valueOrFactory; return this; }<%
+        if(!props.options.withoutUpdate){ %> withUpdatedAt(valueOrFactory:
+        PropOrFactory<Date
+          >) { this._updated_at = valueOrFactory; return this; }<% } %> build():
+          TBuild { const <%= props.name.toLowerCase() %>s = new
+          Array(this.countObjs).fill(undefined).map( (_, index) => new <%=
+          props.name %>( { ...(this._created_at && { created_at:
+          this.callFactory(this._created_at, index), }), }, !this._id ?
+          undefined : this.callFactory(this._id, index) ) ); return
+          this.countObjs === 1 ? (<%= props.name.toLowerCase() %>s[0] as any) :
+          <%= props.name.toLowerCase() %>s; } get id() { return
+          this.getValue("id"); } get created_at() { return
+          this.getValue("created_at"); }<% if(!props.options.withoutUpdate){ %>
+          get updated_at() { return this.getValue("updated_at"); }<% } %>
+          private getValue(prop: any) { const optional = ["id", "created_at"];
+          const privateProp = `_${prop}`; if (!this[privateProp] &&
+          optional.includes(prop)) { throw new Error( `Property ${prop} not have
+          a factory, use 'with' methods` ); } return
+          this.callFactory(this[privateProp], 0); } private
+          callFactory(factoryOrValue: PropOrFactory<any
+            >, index: number) { return typeof factoryOrValue === "function" ?
+            factoryOrValue(index) : factoryOrValue; } }
+          </any></Date
+        ></Date
+      ></any
+    ></TBuild
+  ></T
+>

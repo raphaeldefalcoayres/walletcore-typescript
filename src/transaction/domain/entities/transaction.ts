@@ -2,6 +2,7 @@ import TransactionValidatorFactory from "../validators/transaction.validator";
 import { EntityValidationError } from "#shared/errors";
 import Entity from "#shared/entities/entity";
 import Account from "#account/domain/entities/account";
+import { UniqueEntityId } from "#shared/value-objects";
 
 export type TransactionProperties = {
   id?: string;
@@ -12,7 +13,10 @@ export type TransactionProperties = {
 };
 
 export default class Transaction extends Entity<TransactionProperties> {
-  constructor(public readonly props: TransactionProperties, id?: string) {
+  constructor(
+    public readonly props: TransactionProperties,
+    id?: UniqueEntityId
+  ) {
     super(props, id);
     Transaction.validate(props);
     this.props.created_at = this.created_at ?? new Date();
@@ -32,6 +36,10 @@ export default class Transaction extends Entity<TransactionProperties> {
 
   get amount() {
     return this.props.amount;
+  }
+
+  private set created_at(value) {
+    this.props.created_at = value;
   }
 
   static validate(props: TransactionProperties) {

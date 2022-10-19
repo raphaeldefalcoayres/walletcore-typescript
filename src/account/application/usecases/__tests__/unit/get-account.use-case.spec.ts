@@ -21,7 +21,6 @@ describe("GetAccountUseCase Unit Tests", () => {
 
   it("should returns a account", async () => {
     const client = new Client({
-      id: "1",
       name: "client1",
       email: "client1@email.com",
     });

@@ -3,6 +3,7 @@ import Account from "#account/domain/entities/account";
 import UpdateAccountUseCase from "../../update-accounts.use-case";
 import { AccountInMemoryRepository } from "#account/infra/repository/db/in-memory";
 import Client from "#client/domain/entities/client";
+import { v4 as uuid } from "uuid";
 
 describe("UpdateAccountUseCase Unit Tests", () => {
   let useCase: UpdateAccountUseCase.UseCase;
@@ -14,7 +15,7 @@ describe("UpdateAccountUseCase Unit Tests", () => {
   });
 
   const client = new Client({
-    id: "1",
+    id: uuid(),
     name: "client1",
     email: "client1@email.com",
   });

@@ -21,7 +21,7 @@ describe("AccountOutputMapper Unit Tests", () => {
     const output = AccountOutputMapper.toOutput(entity);
     expect(spyToJSON).toHaveBeenCalled();
     expect(output).toStrictEqual({
-      id: entity.uuid,
+      id: entity.id,
       client: client,
       balance: 1,
       created_at,

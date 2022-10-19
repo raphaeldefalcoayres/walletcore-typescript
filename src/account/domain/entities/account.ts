@@ -2,9 +2,9 @@ import AccountValidatorFactory from "../validators/account.validator";
 import { EntityValidationError } from "#shared/errors";
 import Entity from "#shared/entities/entity";
 import Client from "#client/domain/entities/client";
+import { UniqueEntityId } from "#shared/value-objects";
 
 export type AccountProperties = {
-  id?: string;
   client: Client;
   balance: number;
   created_at?: Date;
@@ -12,7 +12,7 @@ export type AccountProperties = {
 };
 
 export default class Account extends Entity<AccountProperties> {
-  constructor(public readonly props: AccountProperties, id?: string) {
+  constructor(public readonly props: AccountProperties, id?: UniqueEntityId) {
     super(props, id);
     Account.validate(props);
     this.props.created_at = this.created_at ?? new Date();

@@ -1,21 +1,14 @@
-import { v4 as uuid, validate } from "uuid";
+import UniqueEntityId from "../value-objects/unique-entity-id.vo";
 
-export default abstract class Entity<Props = any> {
-  public readonly uuid: string;
-  constructor(public readonly props: Props, id?: string) {
-    this.uuid = id || uuid();
-    this.idValidate();
-  }
+export abstract class Entity<Props = any> {
+  public readonly uniqueEntityId: UniqueEntityId;
 
-  private idValidate() {
-    const isValid = validate(this.uuid);
-    if (!isValid) {
-      throw new Error("Id must be a valid UUID v4");
-    }
+  constructor(public readonly props: Props, id?: UniqueEntityId) {
+    this.uniqueEntityId = id || new UniqueEntityId();
   }
 
   get id(): string {
-    return this.uuid;
+    return this.uniqueEntityId.value;
   }
 
   toJSON(): Required<{ id: string } & Props> {
@@ -25,3 +18,6 @@ export default abstract class Entity<Props = any> {
     } as Required<{ id: string } & Props>;
   }
 }
+
+export default Entity;
+//entity para object

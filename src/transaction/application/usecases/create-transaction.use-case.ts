@@ -2,6 +2,7 @@ import { TransactionRepository } from "#transaction/domain";
 import Transaction from "#transaction/domain/entities/transaction";
 import { default as DefaultUseCase } from "#shared/usecases/use-case";
 import { TransactionOutput, TransactionOutputMapper } from "../dto";
+import Account from "#account/domain/entities/account";
 
 export namespace CreateTransactionUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -15,7 +16,11 @@ export namespace CreateTransactionUseCase {
   }
 
   export type Input = {
-    id: string;
+    id?: string;
+    accountFrom: Account;
+    accountTo: Account;
+    amount: number;
+    created_at?: Date;
   };
 
   export type Output = TransactionOutput;

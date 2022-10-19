@@ -1,6 +1,6 @@
 import { TransactionRepository } from "#transaction/domain";
-
 import Transaction from "#transaction/domain/entities/transaction";
+import { TransactionFakeBuilder } from "#transaction/domain/entities/transaction-fake-builder";
 import { TransactionInMemoryRepository } from "#transaction/infra/repository/db/in-memory";
 import ListTransactionUseCase from "../../list-transactions.use-case";
 
@@ -8,7 +8,7 @@ describe("ListTransactionUseCase Unit Tests", () => {
   let useCase: ListTransactionUseCase.UseCase;
   let repository: TransactionInMemoryRepository;
 
-  beforeEach(() => {
+  beforeAll(() => {
     repository = new TransactionInMemoryRepository();
     useCase = new ListTransactionUseCase.UseCase(repository);
   });
@@ -24,7 +24,7 @@ describe("ListTransactionUseCase Unit Tests", () => {
       filter: null,
     });
     let output = useCase["toOutput"](result);
-    expect(output).toStrictEqual({
+    expect(output).toMatchObject({
       items: [],
       total: 1,
       current_page: 1,
@@ -32,7 +32,8 @@ describe("ListTransactionUseCase Unit Tests", () => {
       last_page: 1,
     });
 
-    const entity = new Transaction({});
+    const fake = TransactionFakeBuilder.aTransaction().build();
+    const entity = new Transaction(fake);
     result = new TransactionRepository.SearchResult({
       items: [entity],
       total: 1,
@@ -44,7 +45,7 @@ describe("ListTransactionUseCase Unit Tests", () => {
     });
 
     output = useCase["toOutput"](result);
-    expect(output).toStrictEqual({
+    expect(output).toMatchObject({
       items: [entity.toJSON()],
       total: 1,
       current_page: 1,
@@ -54,16 +55,15 @@ describe("ListTransactionUseCase Unit Tests", () => {
   });
 
   it("should returns output using empty input with transactions ordered by created_at", async () => {
-    const items = [
-      new Transaction({}),
-      new Transaction({
-        created_at: new Date(new Date().getTime() + 100),
-      }),
-    ];
+    const fake1 = TransactionFakeBuilder.aTransaction().build();
+    const fake2 = TransactionFakeBuilder.aTransaction()
+      .withCreatedAt(new Date(new Date().getTime() + 100))
+      .build();
+    const items = [new Transaction(fake1), new Transaction(fake2)];
     repository.items = items;
 
     const output = await useCase.execute({});
-    expect(output).toStrictEqual({
+    expect(output).toMatchObject({
       items: [...items].reverse().map((i) => i.toJSON()),
       total: 2,
       current_page: 1,
@@ -73,10 +73,9 @@ describe("ListTransactionUseCase Unit Tests", () => {
   });
 
   it("should returns output using pagination, sort and filter", async () => {
-    const items = [
-      new Transaction({}),
-      new Transaction({}),
-    ];
+    const fake1 = TransactionFakeBuilder.aTransaction().build();
+    const fake2 = TransactionFakeBuilder.aTransaction().build();
+    const items = [new Transaction(fake1), new Transaction(fake2)];
     repository.items = items;
 
     let output = await useCase.execute({
@@ -84,7 +83,7 @@ describe("ListTransactionUseCase Unit Tests", () => {
       per_page: 2,
       sort: "created_at",
     });
-    expect(output).toStrictEqual({
+    expect(output).toMatchObject({
       items: [items[0].toJSON(), items[1].toJSON()],
       total: 2,
       current_page: 1,
@@ -97,7 +96,7 @@ describe("ListTransactionUseCase Unit Tests", () => {
       per_page: 2,
       sort: "created_at",
     });
-    expect(output).toStrictEqual({
+    expect(output).toMatchObject({
       items: [],
       total: 2,
       current_page: 2,
@@ -111,8 +110,8 @@ describe("ListTransactionUseCase Unit Tests", () => {
       sort: "created_at",
       sort_dir: "desc",
     });
-    expect(output).toStrictEqual({
-      items: [items[0].toJSON(), items[1].toJSON()],
+    expect(output).toMatchObject({
+      items: [items[1].toJSON(), items[0].toJSON()],
       total: 2,
       current_page: 1,
       per_page: 2,

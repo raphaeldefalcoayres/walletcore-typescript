@@ -28,6 +28,9 @@
       ],
       "#transaction/*": [
         "./transaction/*"
+      ],
+      "#transactiontest/*": [
+        "./transactiontest/*"
       ]
     },
     "outDir": "./dist"

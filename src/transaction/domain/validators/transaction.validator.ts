@@ -1,4 +1,10 @@
-import { IsDate, IsNumber, IsOptional, IsUUID } from "class-validator";
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsObject,
+  IsOptional,
+} from "class-validator";
 import { TransactionProperties } from "../entities/transaction";
 import ClassValidatorFields from "#shared/validators/class-validator-fields";
 import Account from "#account/domain/entities/account";
@@ -8,12 +14,15 @@ export class TransactionRules {
   @IsOptional()
   created_at: Date;
 
-  @IsUUID("4")
+  @IsNotEmpty()
+  @IsObject()
   accountFrom: Account;
 
-  @IsUUID("4")
+  @IsNotEmpty()
+  @IsObject()
   accountTo: Account;
 
+  @IsNotEmpty()
   @IsNumber()
   amount: number;
 

@@ -25,6 +25,18 @@ module.exports = {
     })
 
     await generate({
+      template: 'entity.faker.js.ejs',
+      target: `src/${name.toLowerCase()}/domain/entities/${name.toLowerCase()}-faker-builder.ts`,
+      props: { name, options },
+    })
+
+    await generate({
+      template: 'entity.faker.spec.js.ejs',
+      target: `src/${name.toLowerCase()}/domain/entities/${name.toLowerCase()}-faker-builder.spec.ts`,
+      props: { name, options },
+    })
+
+    await generate({
       template: 'entity.validator.js.ejs',
       target: `src/${name.toLowerCase()}/domain/validators/${name.toLowerCase()}.validator.ts`,
       props: { name, options },

@@ -1,70 +1,134 @@
-import Account from "#account/domain/entities/account";
-import { validate } from "uuid";
+import { UniqueEntityId } from "#shared/value-objects";
+import { omit } from "lodash";
 import Client, { ClientProperties } from "./client";
 
-type Arrange = { props: ClientProperties; id?: string };
-
 describe("Client Unit Tests", () => {
-  const arrange = {
-    id: "1",
-    name: "client1",
-    email: "client1@email.com",
-  };
-
+  beforeEach(() => {
+    Client.validate = jest.fn();
+  });
   test("constructor of client", () => {
-    const client = new Client(arrange);
+    let client = new Client({ name: "client1", email: "email1@email.com" });
+    let props = omit(client.props, "created_at");
+    expect(Client.validate).toHaveBeenCalled();
+    expect(props).toMatchObject({
+      name: "client1",
+      email: "email1@email.com",
+    });
+    expect(client.props.created_at).toBeInstanceOf(Date);
 
-    expect(client.props).toStrictEqual(arrange);
+    let created_at = new Date(); //string
+    client = new Client({
+      name: "Client1",
+      email: "some email",
+      created_at,
+    });
+    expect(client.props).toMatchObject({
+      name: "Client1",
+      email: "some email",
+      created_at,
+    });
+
+    client = new Client({
+      name: "Client1",
+      email: "other email",
+    });
+    expect(client.props).toMatchObject({
+      name: "Client1",
+      email: "other email",
+    });
+
+    client = new Client({
+      name: "Client1",
+      email: "other email",
+    });
+    expect(client.props).toMatchObject({
+      name: "Client1",
+    });
+
+    created_at = new Date();
+    client = new Client({
+      name: "Client1",
+      email: "other email",
+      created_at,
+    });
+    expect(client.props).toMatchObject({
+      name: "Client1",
+      email: "other email",
+      created_at,
+    });
   });
 
-  test("constructor of client with invalid id", () => {
-    const idValidateSpy = jest.spyOn(Client.prototype as any, "idValidate");
-
-    expect(() => new Client(arrange, "1234")).toThrow(
-      "Id must be a valid UUID v4"
-    );
-    expect(idValidateSpy).toHaveBeenCalled();
-  });
-
-  test("getter of id field", () => {
-    const arranges: Arrange[] = [
-      { props: arrange },
-      { props: arrange, id: null },
-      { props: arrange, id: undefined },
-      { props: arrange, id: "924251b2-bc4b-483f-9cdd-011b5da88d85" },
+  describe("id field", () => {
+    type ClientData = { props: ClientProperties; id?: UniqueEntityId };
+    const arrange: ClientData[] = [
+      { props: { name: "Client1", email: "email1@email.com" } },
+      { props: { name: "Client1", email: "email1@email.com" }, id: null },
+      { props: { name: "Client1", email: "email1@email.com" }, id: undefined },
+      {
+        props: { name: "Client1", email: "email1@email.com" },
+        id: new UniqueEntityId(),
+      },
     ];
 
-    arranges.forEach((item) => {
-      const client = new Client(item.props, item.id);
+    test.each(arrange)("when props is %j", (item) => {
+      const client = new Client(item.props, item.id as any);
       expect(client.id).not.toBeNull();
-      expect(validate(client.id)).toBeTruthy();
+      expect(client.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
     });
   });
 
-  test("getter of name field", () => {
-    const client = new Client(arrange);
+  test("getter and setter of name prop", () => {
+    const client = new Client({ name: "Client1", email: "email1@email.com" });
+    expect(client.name).toBe("Client1");
 
-    expect(client.name).toBe("client1");
+    client["name"] = "other name";
+    expect(client.name).toBe("other name");
   });
 
-  test("getter of email field", () => {
-    const client = new Client(arrange);
+  test("getter and setter of email prop", () => {
+    let client = new Client({
+      name: "Client1",
+      email: "Email1",
+    });
+    expect(client.email).toBe("Email1");
 
-    expect(client.email).toBe("client1@email.com");
+    client = new Client({
+      name: "Client1",
+      email: "some email",
+    });
+    expect(client.email).toBe("some email");
+
+    client = new Client({
+      name: "Client1",
+      email: "other email",
+    });
+
+    client["email"] = "other email";
+    expect(client.email).toBe("other email");
   });
 
-  test("add account", () => {
-    const client = new Client({
-      id: "1",
-      name: "client1",
-      email: "client1@email.com",
+  test("getter of created_at prop", () => {
+    let client = new Client({
+      name: "Client1",
+      email: "other email",
     });
-    const account = new Account({
-      client,
-      balance: 0,
-    });
-    client.addAccount(account);
 
-    expect(client.accounts.length).toBe(1);
+    expect(client.created_at).toBeInstanceOf(Date);
+
+    let created_at = new Date();
+    client = new Client({
+      name: "Client1",
+      email: "other email",
+      created_at,
+    });
+    expect(client.created_at).toBe(created_at);
+  });
+
+  it("should update a client", () => {
+    const client = new Client({ name: "Client1", email: "email1@email.com" });
+    client.update("Documentary", "some email");
+    expect(Client.validate).toHaveBeenCalledTimes(2);
+    expect(client.name).toBe("Documentary");
+    expect(client.email).toBe("some email");
   });
 });

@@ -1,5 +1,6 @@
 import { ClientFakeBuilder } from "#client/domain";
 import Client from "#client/domain/entities/client";
+import { UniqueEntityId } from "#shared/value-objects";
 import { Chance } from "chance";
 import Account from "./account";
 
@@ -7,11 +8,11 @@ type PropOrFactory<T> = T | ((index: number) => T);
 
 export class AccountFakeBuilder<TBuild = any> {
   // auto generated in entity
-  private _uuid: any = undefined;
+  private _unique_entity_id = undefined;
   private _client: PropOrFactory<Client> = (_index) =>
     ClientFakeBuilder.aClient().build();
   private _balance: PropOrFactory<number | null> = (_index) =>
-    this.chance.floating();
+    this.chance.floating({ fixed: 2, min: 1, max: 10000 });
   // auto generated in entity
   private _created_at: any = undefined;
   private _updated_at: any = undefined;
@@ -33,8 +34,8 @@ export class AccountFakeBuilder<TBuild = any> {
     this.chance = Chance();
   }
 
-  withUUID(valueOrFactory: PropOrFactory<any>) {
-    this._uuid = valueOrFactory;
+  withUniqueEntityId(valueOrFactory: PropOrFactory<UniqueEntityId>) {
+    this._unique_entity_id = valueOrFactory;
     return this;
   }
 
@@ -74,14 +75,16 @@ export class AccountFakeBuilder<TBuild = any> {
               created_at: this.callFactory(this._created_at, index),
             }),
           },
-          !this._uuid ? undefined : this.callFactory(this._uuid, index)
+          !this._unique_entity_id
+            ? undefined
+            : this.callFactory(this._unique_entity_id, index)
         )
     );
     return this.countObjs === 1 ? (accounts[0] as any) : accounts;
   }
 
-  get uuid() {
-    return this.getValue("uuid");
+  get id() {
+    return this.getValue("id");
   }
 
   get client() {
@@ -101,7 +104,7 @@ export class AccountFakeBuilder<TBuild = any> {
   }
 
   private getValue(prop: any) {
-    const optional = ["uuid", "created_at"];
+    const optional = ["id", "created_at"];
     const privateProp = `_${prop}`;
     if (!this[privateProp] && optional.includes(prop)) {
       throw new Error(

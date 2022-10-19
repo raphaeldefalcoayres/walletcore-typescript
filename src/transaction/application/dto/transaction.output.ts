@@ -1,8 +1,14 @@
+import Account from "#account/domain/entities/account";
 import Transaction from "#transaction/domain/entities/transaction";
 
 export type TransactionOutput = {
   id: string;
-  created_at: Date;
+  props?: {
+    accountFrom: Account;
+    accountTo: Account;
+    amount: Number;
+    created_at: Date;
+  };
 };
 
 export class TransactionOutputMapper {

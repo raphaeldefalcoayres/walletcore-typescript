@@ -5,7 +5,7 @@ type PropOrFactory<T> = T | ((index: number) => T);
 
 export class ClientFakeBuilder<TBuild = any> {
   // auto generated in entity
-  private _uuid: any = undefined;
+  private _unique_entity_id: any = undefined;
   private _name: PropOrFactory<string> = (_index) => this.chance.word();
   private _email: PropOrFactory<string | null> = (_index) =>
     this.chance.email();
@@ -30,8 +30,8 @@ export class ClientFakeBuilder<TBuild = any> {
     this.chance = Chance();
   }
 
-  withUUID(valueOrFactory: PropOrFactory<any>) {
-    this._uuid = valueOrFactory;
+  withUniqueEntityId(valueOrFactory: PropOrFactory<any>) {
+    this._unique_entity_id = valueOrFactory;
     return this;
   }
 
@@ -86,14 +86,16 @@ export class ClientFakeBuilder<TBuild = any> {
               created_at: this.callFactory(this._created_at, index),
             }),
           },
-          !this._uuid ? undefined : this.callFactory(this._uuid, index)
+          !this._unique_entity_id
+            ? undefined
+            : this.callFactory(this._unique_entity_id, index)
         )
     );
     return this.countObjs === 1 ? (clients[0] as any) : clients;
   }
 
-  get uuid() {
-    return this.getValue("uuid");
+  get id() {
+    return this.getValue("id");
   }
 
   get name() {
@@ -113,7 +115,7 @@ export class ClientFakeBuilder<TBuild = any> {
   }
 
   private getValue(prop: any) {
-    const optional = ["uuid", "created_at"];
+    const optional = ["id", "created_at"];
     const privateProp = `_${prop}`;
     if (!this[privateProp] && optional.includes(prop)) {
       throw new Error(

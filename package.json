@@ -36,6 +36,7 @@
     "chance": "^1.1.8",
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
     "uuid": "^9.0.0"
   },
   "imports": {
@@ -51,7 +52,11 @@
     "#transaction/application": "./dist/transaction/application/index.js",
     "#transaction/domain": "./dist/transaction/domain/index.js",
     "#transaction/infra": "./dist/transaction/infra/index.js",
-    "#transaction/*": "./dist/transaction/*.js"
+    "#transaction/*": "./dist/transaction/*.js",
+    "#transactiontest/application": "./dist/transactiontest/application/index.js",
+    "#transactiontest/domain": "./dist/transactiontest/domain/index.js",
+    "#transactiontest/infra": "./dist/transactiontest/infra/index.js",
+    "#transactiontest/*": "./dist/transactiontest/*.js"
   },
   "exports": {
     "./shared/dto": "./dist/shared/dto/index.js",
@@ -70,7 +75,10 @@
     "./account/infra": "./dist/account/infra/index.js",
     "./transaction/application": "./dist/transaction/application/index.js",
     "./transaction/domain": "./dist/transaction/domain/index.js",
-    "./transaction/infra": "./dist/transaction/infra/index.js"
+    "./transaction/infra": "./dist/transaction/infra/index.js",
+    "./transactiontest/application": "./dist/transactiontest/application/index.js",
+    "./transactiontest/domain": "./dist/transactiontest/domain/index.js",
+    "./transactiontest/infra": "./dist/transactiontest/infra/index.js"
   },
   "typesVersions": {
     ">=4.0": {
@@ -124,6 +132,15 @@
       ],
       "transaction/infra": [
         "./dist/transaction/infra/index.d.ts"
+      ],
+      "transactiontest/application": [
+        "./dist/transactiontest/application/index.d.ts"
+      ],
+      "transactiontest/domain": [
+        "./dist/transactiontest/domain/index.d.ts"
+      ],
+      "transactiontest/infra": [
+        "./dist/transactiontest/infra/index.d.ts"
       ]
     }
   }

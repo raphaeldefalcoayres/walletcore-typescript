@@ -1,0 +1,40 @@
+import { <%= props.name %>FakeBuilder } from "./<%= props.name.toLowerCase()
+%>-fake-builder"; describe("<%= props.name %>FakerBuilder Unit Tests", () => {
+describe("id prop", () => { const faker = <%= props.name %>FakeBuilder.a<%=
+props.name %>(); it("should be undefined", () => {
+expect(faker["_id"]).toBeUndefined(); }); test("withUniqueEntityId", () => {
+const uniqueEntityId = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce"; const $this =
+faker.withUniqueEntityId(uniqueEntityId); expect($this).toBeInstanceOf(<%=
+props.name %>FakeBuilder); expect(faker["_id"]).toBe(uniqueEntityId);
+faker.withUniqueEntityId(() => uniqueEntityId);
+expect(faker["_id"]()).toBe(uniqueEntityId);
+expect(faker.id).toBe(uniqueEntityId); }); it("should pass index to id factory",
+() => { let mockFactory = jest .fn()
+.mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce");
+faker.withUniqueEntityId(mockFactory); faker.build();
+expect(mockFactory).toHaveBeenCalledWith(0); mockFactory = jest .fn()
+.mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce"); const fakerMany = <%=
+props.name %>FakeBuilder.the<%= props.name %>s(2);
+fakerMany.withUniqueEntityId(mockFactory); fakerMany.build();
+expect(mockFactory).toHaveBeenCalledWith(0);
+expect(mockFactory).toHaveBeenCalledWith(1); }); }); describe("created_at prop",
+() => { const faker = <%= props.name %>FakeBuilder.a<%= props.name %>();
+it("should throw error when any with methods has called", () => { const faker<%=
+props.name %> = <%= props.name %>FakeBuilder.a<%= props.name %>(); expect(() =>
+faker<%= props.name %>.created_at).toThrow( new Error("Property created_at not
+have a factory, use 'with' methods") ); }); it("should be undefined", () => {
+expect(faker["_created_at"]).toBeUndefined(); }); test("withCreatedAt", () => {
+const date = new Date(); const $this = faker.withCreatedAt(date);
+expect($this).toBeInstanceOf(<%= props.name %>FakeBuilder);
+expect(faker["_created_at"]).toBe(date); faker.withCreatedAt(() => date);
+expect(faker["_created_at"]()).toBe(date); expect(faker.created_at).toBe(date);
+}); it("should pass index to created_at factory", () => { const date = new
+Date(); faker.withCreatedAt((index) => new Date(date.getTime() + index + 2));
+const <%= props.name.toLowerCase() %> = faker.build(); expect(<%=
+props.name.toLowerCase() %>.created_at.getTime()).toBe(date.getTime() + 2);
+const fakerMany = <%= props.name %>FakeBuilder.the<%= props.name %>s(2);
+fakerMany.withCreatedAt((index) => new Date(date.getTime() + index + 2)); const
+<%= props.name.toLowerCase() %>s = fakerMany.build(); expect(<%=
+props.name.toLowerCase() %>s[0].created_at.getTime()).toBe(date.getTime() + 0 +
+2); expect(<%= props.name.toLowerCase()
+%>s[1].created_at.getTime()).toBe(date.getTime() + 1 + 2); }); }); });

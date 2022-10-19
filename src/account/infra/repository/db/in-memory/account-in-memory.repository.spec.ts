@@ -21,7 +21,7 @@ describe("AccountInMemoryRepository", () => {
     const clients = [
       faker
         .withName("test")
-        .withUUID("fbef669c-bc8d-415a-b3b9-86a28f1edbc2")
+        .withUniqueEntityId("fbef669c-bc8d-415a-b3b9-86a28f1edbc2")
         .build(),
       faker.withName("TEST").build(),
       faker.withName("fake").build(),

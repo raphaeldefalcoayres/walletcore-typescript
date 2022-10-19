@@ -1,31 +1,27 @@
+import { UniqueEntityId } from "#shared/value-objects";
 import { AccountFakeBuilder } from "./account-fake-builder";
-// import { Chance } from "chance";
 
 describe("AccountFakerBuilder Unit Tests", () => {
-  describe("uuid prop", () => {
+  describe("id prop", () => {
     const faker = AccountFakeBuilder.aAccount();
 
     it("should be undefined", () => {
-      expect(faker["_uuid"]).toBeUndefined();
+      expect(faker["_unique_entity_id"]).toBeUndefined();
     });
 
-    test("withUUID", () => {
-      const uniqueEntityId = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
-      const $this = faker.withUUID(uniqueEntityId);
+    test("withUniqueEntityId", () => {
+      const uniqueEntityId = new UniqueEntityId();
+      const $this = faker.withUniqueEntityId(uniqueEntityId);
+
       expect($this).toBeInstanceOf(AccountFakeBuilder);
-      expect(faker["_uuid"]).toBe(uniqueEntityId);
-
-      faker.withUUID(() => uniqueEntityId);
-      expect(faker["_uuid"]()).toBe(uniqueEntityId);
-
-      expect(faker.uuid).toBe(uniqueEntityId);
+      expect(faker["_unique_entity_id"]).toBe(uniqueEntityId);
     });
 
-    it("should pass index to uuid factory", () => {
+    it("should pass index to id factory", () => {
       let mockFactory = jest
         .fn()
         .mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce");
-      faker.withUUID(mockFactory);
+      faker.withUniqueEntityId(mockFactory);
       faker.build();
       expect(mockFactory).toHaveBeenCalledWith(0);
 
@@ -33,54 +29,13 @@ describe("AccountFakerBuilder Unit Tests", () => {
         .fn()
         .mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce");
       const fakerMany = AccountFakeBuilder.theAccounts(2);
-      fakerMany.withUUID(mockFactory);
+      fakerMany.withUniqueEntityId(mockFactory);
       fakerMany.build();
 
       expect(mockFactory).toHaveBeenCalledWith(0);
       expect(mockFactory).toHaveBeenCalledWith(1);
     });
   });
-
-  // describe("client prop", () => {
-  //   const faker = AccountFakeBuilder.aAccount();
-  //   it("should be a function", () => {
-  //     expect(typeof faker["_client"] === "function").toBeTruthy();
-  //   });
-
-  //   it("should call the word method", () => {
-  //     const chance = Chance();
-  //     const spyWordMethod = jest.spyOn(chance, "word");
-  //     faker["chance"] = chance;
-  //     faker.build();
-
-  //     expect(spyWordMethod).toHaveBeenCalled();
-  //   });
-
-  //   test("withClient", () => {
-  //     const $this = faker.withClient("test client");
-  //     expect($this).toBeInstanceOf(AccountFakeBuilder);
-  //     expect(faker["_client"]).toBe("test client");
-
-  //     faker.withClient(() => "test client");
-  //     //@ts-expect-error client is callable
-  //     expect(faker["_client"]()).toBe("test client");
-
-  //     expect(faker.client).toBe("test client");
-  //   });
-
-  //   it("should pass index to client factory", () => {
-  //     faker.withClient((index) => `test client ${index}`);
-  //     const account = faker.build();
-  //     expect(account.client).toBe(`test client 0`);
-
-  //     const fakerMany = AccountFakeBuilder.theAccounts(2);
-  //     fakerMany.withClient((index) => `test client ${index}`);
-  //     const accounts = fakerMany.build();
-
-  //     expect(accounts[0].client).toBe(`test client 0`);
-  //     expect(accounts[1].client).toBe(`test client 1`);
-  //   });
-  // });
 
   describe("balance prop", () => {
     const faker = AccountFakeBuilder.aAccount();
@@ -156,51 +111,46 @@ describe("AccountFakerBuilder Unit Tests", () => {
 
   it("should create a account", () => {
     const faker = AccountFakeBuilder.aAccount();
-    const uniqueEntityId: string = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
+    const uniqueEntityId = new UniqueEntityId();
     let account = faker.build();
 
-    // expect(typeof account.client === "string").toBeTruthy();
     expect(typeof account.balance === "number").toBeTruthy();
     expect(account.created_at).toBeInstanceOf(Date);
 
     const created_at = new Date();
 
     account = faker
-      .withUUID(uniqueEntityId)
-      // .withClient("client test")
+      .withUniqueEntityId(uniqueEntityId)
       .withBalance(5)
       .withCreatedAt(created_at)
       .build();
 
-    expect(account.uuid).toBe(uniqueEntityId);
-    // expect(account.client).toBe("client test");
+    expect(account.uniqueEntityId).toBe(uniqueEntityId);
     expect(account.balance).toBe(5);
     expect(account.props.created_at).toEqual(created_at);
   });
 
   it("should create many accounts", () => {
     const faker = AccountFakeBuilder.theAccounts(2);
-    const uniqueEntityId = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
+    const uniqueEntityId = new UniqueEntityId();
     let accounts = faker.build();
 
     accounts.forEach((account) => {
-      // expect(typeof account.client === "Client").toBeTruthy();
       expect(typeof account.balance === "number").toBeTruthy();
       expect(account.created_at).toBeInstanceOf(Date);
     });
 
     const created_at = new Date();
+    const uniqueEntityId2 = new UniqueEntityId();
 
     accounts = faker
-      .withUUID(uniqueEntityId)
-      // .withClient("client test")
+      .withUniqueEntityId(uniqueEntityId2)
       .withBalance(5)
       .withCreatedAt(created_at)
       .build();
 
     accounts.forEach((account) => {
-      expect(account.uuid).toBe(uniqueEntityId);
-      // expect(account.client).toBe("client test");
+      expect(account.uniqueEntityId).toBe(uniqueEntityId2);
       expect(account.balance).toBe(5);
       expect(account.props.created_at).toEqual(created_at);
     });

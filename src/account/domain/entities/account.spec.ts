@@ -1,12 +1,13 @@
 import Client from "#client/domain/entities/client";
-import { validate } from "uuid";
+import { UniqueEntityId } from "#shared/value-objects";
+import { v4 as uuid, validate } from "uuid";
 import Account, { AccountProperties } from "./account";
 
-type Arrange = { props: AccountProperties; id?: string };
+type Arrange = { props: AccountProperties; id?: UniqueEntityId };
 
 describe("Account Unit Tests", () => {
   const fakeClient = {
-    id: "1",
+    id: uuid(),
     name: "client1",
     email: "client1@email.com",
   };
@@ -14,7 +15,7 @@ describe("Account Unit Tests", () => {
   const client = new Client(fakeClient);
 
   const arrange = {
-    id: "1",
+    id: uuid(),
     client: client,
     balance: 1,
   };
@@ -25,21 +26,12 @@ describe("Account Unit Tests", () => {
     expect(account.props).toStrictEqual(arrange);
   });
 
-  test("constructor of account with invalid id", () => {
-    const idValidateSpy = jest.spyOn(Account.prototype as any, "idValidate");
-
-    expect(() => new Account(arrange, "1234")).toThrow(
-      "Id must be a valid UUID v4"
-    );
-    expect(idValidateSpy).toHaveBeenCalled();
-  });
-
   test("getter of id field", () => {
     const arranges: Arrange[] = [
       { props: arrange },
       { props: arrange, id: null },
       { props: arrange, id: undefined },
-      { props: arrange, id: "924251b2-bc4b-483f-9cdd-011b5da88d85" },
+      { props: arrange, id: new UniqueEntityId() },
     ];
 
     arranges.forEach((item) => {

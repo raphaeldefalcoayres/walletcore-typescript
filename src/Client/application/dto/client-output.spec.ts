@@ -15,7 +15,7 @@ describe("ClientOutputMapper Unit Tests", () => {
     const output = ClientOutputMapper.toOutput(entity);
     expect(spyToJSON).toHaveBeenCalled();
     expect(output).toStrictEqual({
-      id: entity.uuid,
+      id: entity.id,
       name: "Movie",
       email: "some email",
       created_at,

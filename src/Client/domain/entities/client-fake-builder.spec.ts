@@ -1,31 +1,28 @@
 import { ClientFakeBuilder } from "./client-fake-builder";
 import { Chance } from "chance";
+import { UniqueEntityId } from "#shared/value-objects";
 
 describe("ClientFakerBuilder Unit Tests", () => {
   describe("uuid prop", () => {
     const faker = ClientFakeBuilder.aClient();
 
     it("should be undefined", () => {
-      expect(faker["_uuid"]).toBeUndefined();
+      expect(faker["_unique_entity_id"]).toBeUndefined();
     });
 
-    test("withUUID", () => {
-      const uniqueEntityId = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
-      const $this = faker.withUUID(uniqueEntityId);
+    test("withUniqueEntityId", () => {
+      const uniqueEntityId = new UniqueEntityId();
+      const $this = faker.withUniqueEntityId(uniqueEntityId);
+
       expect($this).toBeInstanceOf(ClientFakeBuilder);
-      expect(faker["_uuid"]).toBe(uniqueEntityId);
-
-      faker.withUUID(() => uniqueEntityId);
-      expect(faker["_uuid"]()).toBe(uniqueEntityId);
-
-      expect(faker.uuid).toBe(uniqueEntityId);
+      expect(faker["_unique_entity_id"]).toBe(uniqueEntityId);
     });
 
     it("should pass index to uuid factory", () => {
       let mockFactory = jest
         .fn()
         .mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce");
-      faker.withUUID(mockFactory);
+      faker.withUniqueEntityId(mockFactory);
       faker.build();
       expect(mockFactory).toHaveBeenCalledWith(0);
 
@@ -33,7 +30,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
         .fn()
         .mockReturnValue("2f8453f4-6e42-4742-bb91-c1b5caa2ddce");
       const fakerMany = ClientFakeBuilder.theClients(2);
-      fakerMany.withUUID(mockFactory);
+      fakerMany.withUniqueEntityId(mockFactory);
       fakerMany.build();
 
       expect(mockFactory).toHaveBeenCalledWith(0);
@@ -188,7 +185,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
 
   it("should create a client", () => {
     const faker = ClientFakeBuilder.aClient();
-    const uniqueEntityId: string = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
+    const uniqueEntityId = new UniqueEntityId();
     let client = faker.build();
 
     expect(typeof client.name === "string").toBeTruthy();
@@ -198,13 +195,13 @@ describe("ClientFakerBuilder Unit Tests", () => {
     const created_at = new Date();
 
     client = faker
-      .withUUID(uniqueEntityId)
+      .withUniqueEntityId(uniqueEntityId)
       .withName("name test")
       .withEmail("email test")
       .withCreatedAt(created_at)
       .build();
 
-    expect(client.uuid).toBe(uniqueEntityId);
+    expect(client.uniqueEntityId).toBe(uniqueEntityId);
     expect(client.name).toBe("name test");
     expect(client.email).toBe("email test");
     expect(client.props.created_at).toEqual(created_at);
@@ -212,7 +209,7 @@ describe("ClientFakerBuilder Unit Tests", () => {
 
   it("should create many clients", () => {
     const faker = ClientFakeBuilder.theClients(2);
-    const uniqueEntityId = "2f8453f4-6e42-4742-bb91-c1b5caa2ddce";
+    const uniqueEntityId = new UniqueEntityId();
     let clients = faker.build();
 
     clients.forEach((client) => {
@@ -224,14 +221,14 @@ describe("ClientFakerBuilder Unit Tests", () => {
     const created_at = new Date();
 
     clients = faker
-      .withUUID(uniqueEntityId)
+      .withUniqueEntityId(uniqueEntityId)
       .withName("name test")
       .withEmail("email test")
       .withCreatedAt(created_at)
       .build();
 
     clients.forEach((client) => {
-      expect(client.uuid).toBe(uniqueEntityId);
+      expect(client.uniqueEntityId).toBe(uniqueEntityId);
       expect(client.name).toBe("name test");
       expect(client.email).toBe("email test");
       expect(client.props.created_at).toEqual(created_at);

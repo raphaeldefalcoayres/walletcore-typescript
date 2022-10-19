@@ -1,8 +1,8 @@
 import { AccountRepository } from "#account/domain";
-
 import Account from "#account/domain/entities/account";
 import { AccountInMemoryRepository } from "#account/infra/repository/db/in-memory";
 import Client from "#client/domain/entities/client";
+import { v4 as uuid } from "uuid";
 import ListAccountsUseCase from "../../list-accounts.use-case";
 
 describe("ListAccountsUseCase Unit Tests", () => {
@@ -34,7 +34,6 @@ describe("ListAccountsUseCase Unit Tests", () => {
     });
 
     const client = new Client({
-      id: "1",
       name: "client1",
       email: "client1@email.com",
     });
@@ -61,12 +60,10 @@ describe("ListAccountsUseCase Unit Tests", () => {
 
   it("should returns output using empty input with accounts ordered by created_at", async () => {
     const client1 = new Client({
-      id: "1",
       name: "client1",
       email: "client1@email.com",
     });
     const client2 = new Client({
-      id: "2",
       name: "client2",
       email: "client2@email.com",
     });
@@ -92,12 +89,10 @@ describe("ListAccountsUseCase Unit Tests", () => {
 
   it("should returns output using pagination, sort and filter", async () => {
     const client1 = new Client({
-      id: "1",
       name: "client1",
       email: "client1@email.com",
     });
     const client2 = new Client({
-      id: "2",
       name: "client2",
       email: "client2@email.com",
     });

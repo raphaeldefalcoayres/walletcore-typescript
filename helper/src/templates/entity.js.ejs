@@ -1,6 +1,7 @@
 import <%= props.name %>ValidatorFactory from "../validators/<%= props.name.toLowerCase() %>.validator";
 import { EntityValidationError } from "#shared/errors";
 import Entity from "#shared/entities/entity";
+import { UniqueEntityId } from "#shared/value-objects";
 
 export type <%= props.name %>Properties = {
   id?: string;
@@ -9,7 +10,7 @@ export type <%= props.name %>Properties = {
 };
 
 export default class <%= props.name %> extends Entity<<%= props.name %>Properties> {
-  constructor(public readonly props: <%= props.name %>Properties, id?: string) {
+  constructor(public readonly props: <%= props.name %>Properties, id?: UniqueEntityId) {
     super(props, id);
     <%= props.name %>.validate(props);
     this.props.created_at = this.created_at ?? new Date();<% if(!props.options.withoutUpdate){ %>

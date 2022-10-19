@@ -21,7 +21,6 @@ describe("DeleteAccountUseCase Unit Tests", () => {
 
   it("should delete a account", async () => {
     const client = new Client({
-      id: "1",
       name: "client1",
       email: "client1@email.com",
     });
@@ -30,6 +29,7 @@ describe("DeleteAccountUseCase Unit Tests", () => {
     await useCase.execute({
       id: items[0].id,
     });
+
     expect(repository.items).toHaveLength(0);
   });
 });
